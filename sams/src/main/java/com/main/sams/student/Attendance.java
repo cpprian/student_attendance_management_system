@@ -6,8 +6,8 @@ import java.io.Serializable;
  * Attendance class is used to store the attendance of each student for each subject.
  *
  * @author Cyprian
- * @version 1.0
- * @since 2023-01-04
+ * @version 1.1
+ * @since 2023-01-06
  */
 public class Attendance implements Serializable {
     /**
@@ -22,14 +22,20 @@ public class Attendance implements Serializable {
     private AttendanceType attendanceType;
 
     /**
+     * student is an object that store all the information about the student
+     */
+    private Student student;
+
+    /**
      * Attendance is a constructor that creates a new Attendance object.
      *
      * @param classTime - class time
      * @param attendanceType - attendance type
      */
-    public Attendance(ClassTime classTime, AttendanceType attendanceType) {
+    public Attendance(Student student, int attendanceType, ClassTime classTime) {
         this.classTime = classTime;
-        this.attendanceType = attendanceType;
+        this.attendanceType = AttendanceType.values()[attendanceType];
+        this.student = student;
     }
 
     /**
@@ -66,5 +72,23 @@ public class Attendance implements Serializable {
      */
     public void setAttendanceType(AttendanceType attendanceType) {
         this.attendanceType = attendanceType;
+    }
+
+    /**
+     * getStudent is a getter that returns the student.
+     *
+     * @return Student object
+     */
+    public Student getStudent() {
+        return student;
+    }
+
+    /**
+     * setStudent is a setter that sets the student.
+     *
+     * @param student - student
+     */
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }
