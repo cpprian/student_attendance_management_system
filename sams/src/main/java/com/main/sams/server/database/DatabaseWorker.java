@@ -20,18 +20,10 @@ public class DatabaseWorker {
         }
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://" + hostname + ":" + port + "/" + DATABASE_NAME, USERNAME, PASSWORD);
             Statement statement = conn.createStatement()) {
-            statement.execute("""
-                    CREATE TABLE IF NOT EXISTS classtime (
-                        classtimeid INT NOT NULL AUTO_INCREMENT,
-                        classtimename VARCHAR(255) NOT NULL,
-                        durationinminutes INT NOT NULL,
-                        starttime VARCHAR(255) NOT NULL,
-                        endtime VARCHAR(255) NOT NULL,
-                        location VARCHAR(255) NOT NULL,
-                        description VARCHAR(255) NOT NULL,
-                        PRIMARY KEY (classtimeid)
-                    );
-                    """);
+            statement.execute(CreateTableStatement.createClasstimeTable());
+            statement.execute(CreateTableStatement.createAttendanceTable());
+            statement.execute(CreateTableStatement.createStudentTable());
+            statement.execute(CreateTableStatement.createStudentGroupTable());
 
             System.out.println("Database is OK");
         } catch (SQLException e) {

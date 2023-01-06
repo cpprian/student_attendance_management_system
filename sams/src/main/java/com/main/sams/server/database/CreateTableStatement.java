@@ -1,3 +1,8 @@
+package com.main.sams.server.database;
+
+public class CreateTableStatement {
+    public static String createStudentGroupTable() {
+        return """
 CREATE TABLE IF NOT EXISTS studentgroup (
     groupid     INT NOT NULL AUTO_INCREMENT,
     groupName   VARCHAR(25) NOT NULL,
@@ -6,7 +11,11 @@ CREATE TABLE IF NOT EXISTS studentgroup (
     PRIMARY KEY(groupid),
     FOREIGN KEY (studentid) REFERENCES student(studentid)
 );
+                """;
+    }
 
+    public static String createStudentTable() {
+        return """
 CREATE TABLE IF NOT EXISTS student (
     studentid       INT NOT NULL AUTO_INCREMENT,
     studentname     VARCHAR(25) NOT NULL,
@@ -16,15 +25,23 @@ CREATE TABLE IF NOT EXISTS student (
     PRIMARY KEY (studentid),
     FOREIGN KEY (attendanceid) REFERENCES attendance(attendanceid)
 );
+                """;
+    }
 
+    public static String createAttendanceTable() {
+        return """
 CREATE TABLE IF NOT EXISTS attendance (
     attendanceid    INT NOT NULL AUTO_INCREMENT,
     attendancetype  INT NOT NULL,
     classtimeid     INT NOT NULL,
     PRIMARY KEY (attendanceid),
     FOREIGN KEY (classtimeid) REFERENCES classtime(classtimeid)
-    );
+);
+                """;
+    }
 
+    public static String createClasstimeTable() {
+        return """
 CREATE TABLE IF NOT EXISTS classtime (
     classtimeid         INT NOT NULL AUTO_INCREMENT,
     classtimename       VARCHAR(255) NOT NULL,
@@ -35,4 +52,7 @@ CREATE TABLE IF NOT EXISTS classtime (
     location            VARCHAR(255) NOT NULL,
     description         VARCHAR(255) NOT NULL,
     PRIMARY KEY (classtimeid)
-    );
+);
+                """;
+    }
+}
