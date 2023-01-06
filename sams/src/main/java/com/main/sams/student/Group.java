@@ -1,5 +1,6 @@
 package com.main.sams.student;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 2023-01-04
  */
-public class Group {
+public class Group implements Serializable {
     /**
      * name is a String that represents the group's name
      */

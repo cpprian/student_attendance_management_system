@@ -1,6 +1,8 @@
 package com.main.sams.server.server;
 
-public class SocketPackage {
+import java.io.Serializable;
+
+public class SocketPackage implements Serializable {
     private RequestType requestType;
     private Object object;
 

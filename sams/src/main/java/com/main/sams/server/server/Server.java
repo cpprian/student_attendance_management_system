@@ -50,6 +50,7 @@ public class Server {
             out = new ObjectOutputStream(clientSocket.getOutputStream());
             in = new ObjectInputStream(clientSocket.getInputStream());
 
+            receivePackage();
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, "Server runServer: Server failed to run");
             cleanUpServer();
@@ -75,38 +76,43 @@ public class Server {
     }
 
     private void receivePackage() {
-        new Thread(() -> {
-            try {
-                while (clientSocket.isConnected()) {
-                    // read from client
-                    SocketPackage socketPackage = (SocketPackage) in.readObject();
-                    if (socketPackage == null) {
-                        logger.log(System.Logger.Level.INFO, "Received package from client is null. Closing connection.");
-                        continue;
-                    }
-                    logger.log(System.Logger.Level.INFO, "Received package from client: " + socketPackage);
-
-                    // process package
-                    new Thread(() -> {
-                        sendPackage(processPackage(socketPackage));
-                    }).start();
+        try {
+            while (clientSocket.isConnected()) {
+                // read from client
+                SocketPackage socketPackage = (SocketPackage) in.readObject();
+                if (socketPackage == null) {
+                    logger.log(System.Logger.Level.INFO, "Received package from client is null. Closing connection.");
+                    continue;
                 }
-            } catch (Exception e) {
-                logger.log(System.Logger.Level.ERROR, "Server receivePackage: Server failed to receive package");
-                cleanUpServer();
-                System.exit(1);
+                logger.log(System.Logger.Level.INFO, "Received package from client: " + socketPackage);
+
+                // process package
+                new Thread(() -> {
+                    sendPackage(processPackage(socketPackage));
+                }).start();
             }
-        }).start();
+        } catch (Exception e) {
+            if (e.getClass() == EOFException.class) {
+                logger.log(System.Logger.Level.INFO, "Client disconnected");
+            } else {
+                logger.log(System.Logger.Level.ERROR, "Server receivePackage: Server failed to receive package, error message: " + e.getMessage() + " error type: " + e.getClass());
+            }
+
+            cleanUpServer();
+            System.exit(1);
+        }
     }
 
     private void sendPackage(SocketPackage socketPackage) {
         try {
-            while (clientSocket.isConnected()) {
-                // write to client
-                out.writeObject(socketPackage);
-                out.flush();
-                logger.log(System.Logger.Level.INFO, "Sent package to client: " + socketPackage);
+            // write to client
+            if (!clientSocket.isConnected()) {
+                logger.log(System.Logger.Level.INFO, "Client is not connected. Closing connection.");
+                return;
             }
+            out.writeObject(socketPackage);
+            out.flush();
+            logger.log(System.Logger.Level.INFO, "Sent package to client: " + socketPackage);
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, "Server sendPackage: Server failed to send package");
             cleanUpServer();

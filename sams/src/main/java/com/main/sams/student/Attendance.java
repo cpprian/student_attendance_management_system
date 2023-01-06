@@ -1,5 +1,7 @@
 package com.main.sams.student;
 
+import java.io.Serializable;
+
 /**
  * Attendance class is used to store the attendance of each student for each subject.
  *
@@ -7,7 +9,7 @@ package com.main.sams.student;
  * @version 1.0
  * @since 2023-01-04
  */
-public class Attendance {
+public class Attendance implements Serializable {
     /**
      * classTime is an object that store all the information about the class time
      */

@@ -1,5 +1,6 @@
 package com.main.sams.student;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ import java.util.Date;
  * @version 1.0
  * @since 2023-01-04
  */
-public class ClassTime {
+public class ClassTime implements Serializable {
     /**
      * name is a String that represents the name of the class
      */
