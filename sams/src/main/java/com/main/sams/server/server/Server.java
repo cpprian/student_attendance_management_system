@@ -1,5 +1,7 @@
 package com.main.sams.server.server;
 
+import com.main.sams.server.database.DatabaseWorker;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -17,9 +19,14 @@ public class Server {
 
     private ObjectOutputStream out = null;
     private ObjectInputStream in = null;
+    private String dbHost = "";
 
-    private Server() {
+    private String dbPort = "";
+
+    private Server(String hostname, String port) {
         try {
+            dbHost = hostname;
+            dbPort = port;
             serverSocket = new ServerSocket(PORT);
             logger = System.getLogger("Server");
             logger.log(System.Logger.Level.INFO, "Server started on port " + PORT + " and ip address " + serverSocket.getInetAddress());
@@ -30,20 +37,37 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
-        Server server = Server.getInstance();
+        Server server = Server.getInstance(args[0], args[1]);
         server.runServer();
         server.cleanUpServer();
     }
 
-    public static Server getInstance() {
+    public static Server getInstance(String hostname, String port) {
         if (instance == null) {
-            instance = new Server();
+            instance = new Server(hostname, port);
         }
         return instance;
     }
 
+    private String getDbHost() {
+        return dbHost;
+    }
+
+    private void setDbHost(String dbHost) {
+        this.dbHost = dbHost;
+    }
+
+    private String getDbPort() {
+        return dbPort;
+    }
+
+    private void setDbPort(String dbPort) {
+        this.dbPort = dbPort;
+    }
+
     private void runServer() {
         try {
+            DatabaseWorker databaseWorker = DatabaseWorker.getInstance(getDbHost(), getDbPort());
             // handle one client at a time
             clientSocket = serverSocket.accept();
             logger.log(System.Logger.Level.INFO, "Client connected: " + clientSocket.getInetAddress().getHostAddress());
