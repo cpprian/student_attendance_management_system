@@ -1,5 +1,13 @@
 package com.main.sams.server.server;
 
+/**
+ * RequestType is an enum that defines the different types of requests that can be made to the server.
+ * It contains two request that is reserved for the server to use.
+ *
+ * @author cpprian
+ * @version 1.0
+ * @since 2023-01-06
+ */
 public enum RequestType {
     SERVER_ACCEPTED, // only for server
     SERVER_REJECTED, // only for server

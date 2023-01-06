@@ -12,24 +12,71 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 
+/**
+ * Server class that handles all the requests from the client
+ *
+ * @author cpprian
+ * @version 1.0
+ * @since 2023-01-06
+ */
 public class Server {
 
-    // singleton
+    /**
+     * instance of the server, used for singleton
+     */
     private static Server instance = null;
+
+    /**
+     * serverSocket used to listen for incoming connections
+     */
     private ServerSocket serverSocket = null;
+
+    /**
+     * socket used to communicate with the client
+     */
     private Socket clientSocket = null;
+
+    /**
+     * logger used to log the server's actions
+     */
     private System.Logger logger = null;
 
+    /**
+     * PORT is used to set the port that the server will listen on
+     */
     private static final int PORT = 8080;
 
+    /**
+     * out is used to write to the client
+     */
     private ObjectOutputStream out = null;
+
+    /**
+     * in is used to read from the client
+     */
     private ObjectInputStream in = null;
 
+    /**
+     * databaseWorker is used to communicate with the database
+     */
     private DatabaseWorker databaseWorker = null;
+
+    /**
+     * dbHost is used to set the host of the database
+     */
     private String dbHost = "";
 
+    /**
+     * dbPort is used to set the port of the database
+     */
     private String dbPort = "";
 
+    /**
+     * constructor for the server, sets the logger and databaseWorker and starts the server
+     *
+     * @param hostname the hostname of the database
+     * @param port the port of the database
+     */
     private Server(String hostname, String port) {
         try {
             dbHost = hostname;
@@ -43,12 +90,25 @@ public class Server {
         }
     }
 
+    /**
+     * main method for the server, creates a new server instance
+     *
+     * @param args the arguments passed to the server
+     * @throws IOException if the server fails to start
+     */
     public static void main(String[] args) throws IOException {
         Server server = Server.getInstance(args[0], args[1]);
         server.runServer();
         server.cleanUpServer();
     }
 
+    /**
+     * getInstance method for the server, used to create a new server instance
+     *
+     * @param hostname the hostname of the database
+     * @param port the port of the database
+     * @return the server instance
+     */
     public static Server getInstance(String hostname, String port) {
         if (instance == null) {
             instance = new Server(hostname, port);
@@ -56,22 +116,43 @@ public class Server {
         return instance;
     }
 
+    /**
+     * getDbHost is used to get the hostname of the database
+     *
+     * @return the hostname of the database
+     */
     private String getDbHost() {
         return dbHost;
     }
 
+    /**
+     * setDbHost is used to set the hostname of the database
+     */
     private void setDbHost(String dbHost) {
         this.dbHost = dbHost;
     }
 
+    /**
+     * getDbPort is used to get the port of the database
+     *
+     * @return the port of the database
+     */
     private String getDbPort() {
         return dbPort;
     }
 
+    /**
+     * setDbPort is used to set the port of the database
+     */
     private void setDbPort(String dbPort) {
         this.dbPort = dbPort;
     }
 
+    /**
+     * runServer is used to run the server and handle all the requests from the client
+     *
+     * @throws IOException if the server fails to start
+     */
     private void runServer() {
         try {
             databaseWorker = DatabaseWorker.getInstance(getDbHost(), getDbPort());
@@ -89,10 +170,19 @@ public class Server {
         }
     }
 
+    /**
+     * cleanUpServer is used to clean up the server
+     * it closes the serverSocket, clientSocket, out and in
+     *
+     * @throws IOException if the server fails to close the connection
+     */
     private void cleanUpServer() {
         try {
             if (serverSocket != null) {
                 serverSocket.close();
+            }
+            if (clientSocket != null) {
+                clientSocket.close();
             }
             if (out != null) {
                 out.close();
@@ -106,6 +196,11 @@ public class Server {
         }
     }
 
+    /**
+     * receivePackage is used to receive a package from the client
+     *
+     * @throws IOException if the server fails to receive the package
+     */
     private void receivePackage() {
         try {
             while (clientSocket.isConnected()) {
@@ -134,6 +229,12 @@ public class Server {
         }
     }
 
+    /**
+     * sendPackage is used to send a package to the client
+     *
+     * @param socketPackage the package to send to the client
+     * @throws IOException if the server fails to send the package
+     */
     private void sendPackage(SocketPackage socketPackage) {
         try {
             // write to client
@@ -151,6 +252,12 @@ public class Server {
         }
     }
 
+    /**
+     * processPackage is used to process the package received from the client
+     *
+     * @param socketPackage the package received from the client
+     * @return the package to send to the client
+     */
     private SocketPackage processPackage(SocketPackage socketPackage) {
         SocketPackage responsePackage = null;
 

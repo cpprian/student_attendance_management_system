@@ -2,14 +2,30 @@ package com.main.sams.server.database;
 
 import com.main.sams.student.AttendanceType;
 
+/**
+ * StudentDbUtil is a class that contains methods to interact with the database, it returns a statement for the database.
+ *
+ * @author sams
+ * @version 1.0
+ * @since 2023-01-06
+ */
 public class StudentDbUtil {
 
+    /**
+     * addStudent method adds a student to the database.
+     *
+     * @param name the name of the student
+     * @param surname the surname of the student
+     * @param studentNumber the student number of the student
+     * @return
+     */
     public static String addStudent(String name, String surname, int studentNumber) {
         return """
                 INSERT INTO student (studentname, studentsurname, studentnumber)
                 VALUES ('%s', '%s', %d);
                 """.formatted(name, surname, studentNumber);
     }
+
 
     public static String deleteStudent(int studentNumber) {
         return """
