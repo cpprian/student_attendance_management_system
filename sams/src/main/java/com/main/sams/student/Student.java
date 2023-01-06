@@ -1,7 +1,6 @@
 package com.main.sams.student;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Student is a class that represents a student.
@@ -12,8 +11,8 @@ import java.util.ArrayList;
  * index - student's index
  *
  * @author Cyprian
- * @version 1.0
- * @since 2023-01-04
+ * @version 1.1
+ * @since 2023-01-06
  */
 public class Student implements Serializable {
     /**
@@ -32,15 +31,7 @@ public class Student implements Serializable {
     private int index;
 
     /**
-     * attendance is an ArrayList of Attendance objects that represents the student's attendance on a given day
-     *
-     * @see Attendance
-     */
-    private ArrayList<Attendance> attendance;
-
-    /**
      * Student is a constructor that creates a new Student object.
-     * It also creates an empty ArrayList of Attendance objects.
      *
      * @param name - student's name
      * @param surname - student's surname
@@ -50,7 +41,6 @@ public class Student implements Serializable {
         this.name = name;
         this.surname = surname;
         this.index = index;
-        this.attendance = new ArrayList<>();
     }
 
     /**
@@ -80,15 +70,6 @@ public class Student implements Serializable {
         return index;
     }
 
-    /**
-     * getAttendance is a getter that returns the student's attendance.
-     *
-     * @return student's attendance
-     */
-    public ArrayList<Attendance> getAttendance() {
-        return attendance;
-    }
-
 
     /**
      * setName is a setter that sets the student's name.
@@ -115,23 +96,5 @@ public class Student implements Serializable {
      */
     public void setIndex(int index) {
         this.index = index;
-    }
-
-    /**
-     * setAttendance is a setter that sets the student's attendance.
-     *
-     * @param attendance - student's attendance
-     */
-    public void setAttendance(ArrayList<Attendance> attendance) {
-        this.attendance = attendance;
-    }
-
-    /**
-     * addAttendance is a method that adds a new Attendance object to the student's attendance.
-     *
-     * @param attendance - student's attendance
-     */
-    public void addAttendance(Attendance attendance) {
-        this.attendance.add(attendance);
     }
 }
