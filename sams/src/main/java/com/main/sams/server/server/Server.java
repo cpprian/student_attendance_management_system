@@ -116,6 +116,8 @@ public class Server {
 
     private SocketPackage processPackage(SocketPackage socketPackage) {
         SocketPackage responsePackage = null;
+
+        // TODO: process package
         switch (socketPackage.getRequestType()) {
             case ADD_STUDENT: {
                 break;

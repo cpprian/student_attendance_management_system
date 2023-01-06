@@ -28,13 +28,6 @@ public class Client {
         }
     }
 
-    // TODO: remeber to obtain hostname from user
-    public static void main(String[] args) {
-        Client client = Client.getInstance(args[0]);
-        client.runClient();
-        client.cleanUpClient();
-    }
-
     public static Client getInstance(String hostname) {
         if (instance == null) {
             instance = new Client(hostname);
@@ -42,11 +35,7 @@ public class Client {
         return instance;
     }
 
-    private void runClient() {
-        // todo: add connection between javaFX and client
-    }
-
-    private void cleanUpClient() {
+    public void cleanUpClient() {
         try {
             if (clientSocket != null) {
                 clientSocket.close();
@@ -62,7 +51,7 @@ public class Client {
         }
     }
 
-    private void sendRequest(SocketPackage socketPackage) {
+    public void sendRequest(SocketPackage socketPackage) {
         try {
             out.writeObject(socketPackage);
             logger.log(System.Logger.Level.INFO, "Sent request to server");
@@ -71,7 +60,7 @@ public class Client {
         }
     }
 
-    private SocketPackage receiveResponse() {
+    public SocketPackage receiveResponse() {
         try {
             SocketPackage socketPackage = (SocketPackage) in.readObject();
             if (socketPackage.getRequestType() == RequestType.SERVER_REJECTED) {

@@ -10,4 +10,10 @@ public class DatabaseWorker {
     }
 
     // TODO: add all methods from server
+    public static DatabaseWorker getInstance() {
+        if (instance == null) {
+            instance = new DatabaseWorker();
+        }
+        return instance;
+    }
 }
