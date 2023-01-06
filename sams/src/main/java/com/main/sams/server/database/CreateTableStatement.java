@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS studentgroup (
     groupYear   INT NOT NULL,
     studentID   INT NOT NULL,
     PRIMARY KEY(groupid),
-    FOREIGN KEY (studentid) REFERENCES student(studentid)
+    FOREIGN KEY (studentid) REFERENCES student(studentid) ON DELETE CASCADE ON UPDATE CASCADE
 );
                 """;
     }
@@ -21,9 +21,7 @@ CREATE TABLE IF NOT EXISTS student (
     studentname     VARCHAR(25) NOT NULL,
     studentsurname  VARCHAR(25) NOT NULL,
     studentnumber   INT NOT NULL,
-    attendanceid    INT NOT NULL,
-    PRIMARY KEY (studentid),
-    FOREIGN KEY (attendanceid) REFERENCES attendance(attendanceid)
+    PRIMARY KEY (studentid)
 );
                 """;
     }
@@ -32,10 +30,12 @@ CREATE TABLE IF NOT EXISTS student (
         return """
 CREATE TABLE IF NOT EXISTS attendance (
     attendanceid    INT NOT NULL AUTO_INCREMENT,
+    studentid       INT NOT NULL,
     attendancetype  INT NOT NULL,
     classtimeid     INT NOT NULL,
     PRIMARY KEY (attendanceid),
-    FOREIGN KEY (classtimeid) REFERENCES classtime(classtimeid)
+    FOREIGN KEY (studentid) REFERENCES student(studentid) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (classtimeid) REFERENCES classtime(classtimeid) ON DELETE CASCADE ON UPDATE CASCADE
 );
                 """;
     }
@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS classtime (
     classtimeid         INT NOT NULL AUTO_INCREMENT,
     classtimename       VARCHAR(255) NOT NULL,
     durationinminutes   INT NOT NULL,
-    classtimedate       VARCHAR(255) NOT NULL,
-    starttime           VARCHAR(255) NOT NULL,
-    endtime             VARCHAR(255) NOT NULL,
+    classtimedate       VARCHAR(50) NOT NULL,
+    starttime           VARCHAR(25) NOT NULL,
+    endtime             VARCHAR(25) NOT NULL,
     location            VARCHAR(255) NOT NULL,
     description         VARCHAR(255) NOT NULL,
     PRIMARY KEY (classtimeid)

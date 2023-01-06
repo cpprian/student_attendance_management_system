@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class DatabaseWorker {
     private static DatabaseWorker instance = null;
     private static final String DATABASE_NAME = "sams";
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String USERNAME = "sams";
     private static final String PASSWORD = "123";
 
@@ -21,8 +21,8 @@ public class DatabaseWorker {
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://" + hostname + ":" + port + "/" + DATABASE_NAME, USERNAME, PASSWORD);
             Statement statement = conn.createStatement()) {
             statement.execute(CreateTableStatement.createClasstimeTable());
-            statement.execute(CreateTableStatement.createAttendanceTable());
             statement.execute(CreateTableStatement.createStudentTable());
+            statement.execute(CreateTableStatement.createAttendanceTable());
             statement.execute(CreateTableStatement.createStudentGroupTable());
 
             System.out.println("Database is OK");
