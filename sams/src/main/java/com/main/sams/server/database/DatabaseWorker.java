@@ -38,7 +38,6 @@ public class DatabaseWorker {
         }
     }
 
-    // TODO: add all methods from server
     public static DatabaseWorker getInstance(String hostname, String port) {
         if (instance == null) {
             instance = new DatabaseWorker(hostname, port);
@@ -241,11 +240,11 @@ public class DatabaseWorker {
         return attendances;
     }
 
-    public ArrayList<ClassTime> getAllClassTimesOfStudent(int studenNumber) {
+    public ArrayList<ClassTime> getAllClassTimesOfStudent(int studentNumber) {
         ArrayList<ClassTime> classTimes = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
                 Statement statement = conn.createStatement()) {
-            ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllClassTimesOfStudent(studenNumber));
+            ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllClassTimesOfStudent(studentNumber));
             while (resultSet.next()) {
                 classTimes.add(new ClassTime(resultSet.getString("classtimename"), resultSet.getInt("durationinminutes"),
                         resultSet.getString("classtimedate"), resultSet.getString("starttime"),
@@ -273,5 +272,17 @@ public class DatabaseWorker {
             System.out.println("DatabaseWorker getAllClassTimesOfGroup: Failed to get class times of group, " + e.getMessage());
         }
         return classTimes;
+    }
+
+    public ArrayList<Attendance> getGroupAttendances(int groupID, int classTimeID) {
+        ArrayList<Attendance> attendances = new ArrayList<>();
+        try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
+                Statement statement = conn.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(StudentDbUtil.printGroupAttendance(groupID, classTimeID));
+            iterAttendance(attendances, resultSet);
+        } catch (SQLException e) {
+            System.out.println("DatabaseWorker getGroupAttendances: Failed to get group attendances, " + e.getMessage());
+        }
+        return attendances;
     }
 }

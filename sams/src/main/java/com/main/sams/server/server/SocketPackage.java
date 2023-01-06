@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 public class SocketPackage implements Serializable {
     private RequestType requestType;
-    private Object object;
+    private Object object1;
+    private Object object2;
 
-    public SocketPackage(RequestType requestType, Object object) {
+    public SocketPackage(RequestType requestType, Object object1, Object object2) {
         this.requestType = requestType;
-        this.object = object;
+        this.object1 = object1;
+        this.object2 = object2;
     }
 
     public RequestType getRequestType() {
@@ -19,11 +21,19 @@ public class SocketPackage implements Serializable {
         this.requestType = requestType;
     }
 
-    public Object getObject() {
-        return object;
+    public Object getObject1() {
+        return object1;
     }
 
-    public void setObject(Object object) {
-        this.object = object;
+    public void setObject1(Object object) {
+        this.object1 = object;
+    }
+
+    public Object getObject2() {
+        return object2;
+    }
+
+    public void setObject2(Object object) {
+        this.object2 = object;
     }
 }

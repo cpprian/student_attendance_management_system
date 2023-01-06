@@ -139,4 +139,15 @@ public class StudentDbUtil {
                 WHERE studentgroup.groupid = %d;
                 """.formatted(groupID);
     }
+
+    public static String printGroupAttendance(int groupID, int classTimeID) {
+        return """
+                SELECT student.studentname, student.studentsurname, student.studentnumber, attendance.attendancetype, classtime.classtimename, classtime.classtimedate, classtime.classtimestarttime, classtime.classtimeendtime
+                FROM student
+                INNER JOIN studentgroup ON student.studentid = studentgroup.studentid
+                INNER JOIN attendance ON student.studentid = attendance.studentid
+                INNER JOIN classtime ON attendance.classtimeid = classtime.classtimeid
+                WHERE studentgroup.groupid = %d AND attendance.classtimeid = %d;
+                """.formatted(groupID, classTimeID);
+    }
 }
