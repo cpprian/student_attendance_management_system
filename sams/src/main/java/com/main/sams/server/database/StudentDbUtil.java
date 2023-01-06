@@ -1,0 +1,73 @@
+package com.main.sams.server.database;
+
+import com.main.sams.student.AttendanceType;
+
+public class StudentDbUtil {
+
+    public static String addStudent(String name, String surname, int studentNumber) {
+        return """
+                INSERT INTO student (studentname, studentsurname, studentnumber)
+                VALUES ('%s', '%s', %d);
+                """.formatted(name, surname, studentNumber);
+    }
+
+    public static String deleteStudent(int studentNumber) {
+        return """
+                DELETE FROM student
+                WHERE studentnumber = %d;
+                """.formatted(studentNumber);
+    }
+
+    public static String addGroup(String groupName, int groupYear) {
+        return """
+                INSERT INTO studentgroup (groupName, groupYear)
+                VALUES ('%s', %d);
+                """.formatted(groupName, groupYear);
+    }
+
+    public static String deleteGroup(int groupID) {
+        return """
+                DELETE FROM studentgroup
+                WHERE groupid = %d;
+                """.formatted(groupID);
+    }
+
+    public static String addStudentToGroup(int studentNumber, int groupID) {
+        return """
+                INSERT INTO studentgroup (studentid, groupid)
+                VALUES ((SELECT studentid FROM student WHERE studentnumber = %d), %d);
+                """.formatted(studentNumber, groupID);
+    }
+
+    public static String deleteStudentFromGroup(int studentNumber, int groupID) {
+        return """
+                DELETE FROM studentgroup
+                WHERE studentid = (SELECT studentid FROM student WHERE studentnumber = %d) AND groupid = %d;
+                """.formatted(studentNumber, groupID);
+    }
+
+    public static String addClassTime(String className, int durationInMinutes, String classTimeDate,
+                                      String classTimeStartTime, String classTimeEndTime, String location, String description) {
+        return """
+                INSERT INTO classtime (classtimename, durationinminutes, classtimedate, classtimestarttime, classtimeendtime, location, description)
+                VALUES ('%s', %d, '%s', '%s', '%s', '%s', '%s');
+                """.formatted(className, durationInMinutes, classTimeDate, classTimeStartTime, classTimeEndTime, location, description);
+    }
+
+    public static String addAttendance(int studentNumber, AttendanceType attendanceType, int classTimeID) {
+        return """
+                INSERT INTO attendance (studentid, attendancetype, classtimeid)
+                VALUES ((SELECT studentid FROM student WHERE studentnumber = %d), %d, %d);
+                """.formatted(studentNumber, attendanceType, classTimeID);
+    }
+
+    public static String printGroupAttendance(int groupID, int classTimeID) {
+        return """
+                SELECT student.studentname, student.studentsurname, attendance.attendancetype
+                FROM student
+                INNER JOIN studentgroup ON student.studentid = studentgroup.studentid
+                INNER JOIN attendance ON student.studentid = attendance.studentid
+                WHERE studentgroup.groupid = %d AND attendance.classtimeid = %d;
+                """.formatted(groupID, classTimeID);
+    }
+}

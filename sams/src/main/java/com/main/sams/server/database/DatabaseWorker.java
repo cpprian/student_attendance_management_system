@@ -20,10 +20,12 @@ public class DatabaseWorker {
         }
         try(Connection conn = DriverManager.getConnection("jdbc:mysql://" + hostname + ":" + port + "/" + DATABASE_NAME, USERNAME, PASSWORD);
             Statement statement = conn.createStatement()) {
+            // create tables
             statement.execute(CreateTableStatement.createClasstimeTable());
+            statement.execute(CreateTableStatement.createGroupTable());
             statement.execute(CreateTableStatement.createStudentTable());
-            statement.execute(CreateTableStatement.createAttendanceTable());
             statement.execute(CreateTableStatement.createStudentGroupTable());
+            statement.execute(CreateTableStatement.createAttendanceTable());
 
             System.out.println("Database is OK");
         } catch (SQLException e) {

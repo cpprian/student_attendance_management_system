@@ -1,15 +1,13 @@
 package com.main.sams.server.database;
 
 public class CreateTableStatement {
-    public static String createStudentGroupTable() {
+    public static String createGroupTable() {
         return """
-CREATE TABLE IF NOT EXISTS studentgroup (
+CREATE TABLE IF NOT EXISTS sgroup (
     groupid     INT NOT NULL AUTO_INCREMENT,
-    groupName   VARCHAR(25) NOT NULL,
-    groupYear   INT NOT NULL,
-    studentID   INT NOT NULL,
-    PRIMARY KEY(groupid),
-    FOREIGN KEY (studentid) REFERENCES student(studentid) ON DELETE CASCADE ON UPDATE CASCADE
+    groupname   VARCHAR(50) NOT NULL UNIQUE,
+    groupyear   INT NOT NULL,
+    PRIMARY KEY(groupid)
 );
                 """;
     }
@@ -20,8 +18,21 @@ CREATE TABLE IF NOT EXISTS student (
     studentid       INT NOT NULL AUTO_INCREMENT,
     studentname     VARCHAR(25) NOT NULL,
     studentsurname  VARCHAR(25) NOT NULL,
-    studentnumber   INT NOT NULL,
+    studentnumber   INT NOT NULL UNIQUE,
     PRIMARY KEY (studentid)
+);
+                """;
+    }
+
+    public static String createStudentGroupTable() {
+        return """
+CREATE TABLE IF NOT EXISTS studentgroup (
+    studentgroupid  INT NOT NULL AUTO_INCREMENT,
+    studentid       INT NOT NULL,
+    groupid         INT NOT NULL,
+    PRIMARY KEY (studentgroupid),
+    FOREIGN KEY (studentid) REFERENCES student(studentid) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (groupid) REFERENCES sgroup(groupid) ON DELETE CASCADE ON UPDATE CASCADE
 );
                 """;
     }
