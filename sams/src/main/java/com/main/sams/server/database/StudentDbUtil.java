@@ -1,6 +1,6 @@
 package com.main.sams.server.database;
 
-import com.main.sams.studentPackage.AttendanceType;
+import com.main.sams.student.AttendanceType;
 
 /**
  * StudentDbUtil is a class that contains methods to interact with the database, it returns a statement for the database.

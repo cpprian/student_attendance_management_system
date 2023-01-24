@@ -10,4 +10,9 @@ module com.main.sams {
 
     opens com.main.sams to javafx.fxml;
     exports com.main.sams;
+
+    opens com.main.sams.allFxComponents to javafx.fxml;
+    exports com.main.sams.allFxComponents;
+    exports com.main.sams.allFxComponents.Controllers;
+    opens com.main.sams.allFxComponents.Controllers to javafx.fxml;
 }
