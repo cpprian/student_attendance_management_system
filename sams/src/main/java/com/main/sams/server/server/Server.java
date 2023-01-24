@@ -4,7 +4,7 @@ import com.main.sams.server.database.DatabaseWorker;
 import com.main.sams.student.Attendance;
 import com.main.sams.student.ClassTime;
 import com.main.sams.student.Group;
-import com.main.sams.student.Student;
+import com.main.sams.student.StudentPackage;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -263,14 +263,14 @@ public class Server {
 
         switch (socketPackage.getRequestType()) {
             case ADD_STUDENT: {
-                Student student = (Student) socketPackage.getObject1();
-                databaseWorker.addStudent(student.getName(), student.getSurname(), student.getIndex());
+                StudentPackage studentPackage = (StudentPackage) socketPackage.getObject1();
+                databaseWorker.addStudent(studentPackage.getName(), studentPackage.getSurname(), studentPackage.getIndex());
                 responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, null, null);
                 break;
             }
             case DELETE_STUDENT: {
-                Student student = (Student) socketPackage.getObject1();
-                databaseWorker.deleteStudent(student.getIndex());
+                StudentPackage studentPackage = (StudentPackage) socketPackage.getObject1();
+                databaseWorker.deleteStudent(studentPackage.getIndex());
                 responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, null, null);
                 break;
             }
@@ -287,16 +287,16 @@ public class Server {
                 break;
             }
             case ADD_STUDENT_TO_GROUP: {
-                Student student = (Student) socketPackage.getObject1();
+                StudentPackage studentPackage = (StudentPackage) socketPackage.getObject1();
                 int groupid = (int) socketPackage.getObject2();
-                databaseWorker.addStudentToGroup(student.getIndex(), groupid);
+                databaseWorker.addStudentToGroup(studentPackage.getIndex(), groupid);
                 responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, null, null);
                 break;
             }
             case DELETE_STUDENT_FROM_GROUP: {
-                Student student = (Student) socketPackage.getObject1();
+                StudentPackage studentPackage = (StudentPackage) socketPackage.getObject1();
                 int groupid = (int) socketPackage.getObject2();
-                databaseWorker.deleteStudentFromGroup(student.getIndex(), groupid);
+                databaseWorker.deleteStudentFromGroup(studentPackage.getIndex(), groupid);
                 responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, null, null);
                 break;
             }
@@ -321,8 +321,8 @@ public class Server {
                 break;
             }
             case PRINT_ALL_STUDENTS: {
-                ArrayList<Student> students = databaseWorker.getStudents();
-                responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, students, null);
+                ArrayList<StudentPackage> studentPackages = databaseWorker.getStudents();
+                responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, studentPackages, null);
                 break;
             }
             case PRINT_ALL_GROUPS: {
@@ -342,26 +342,26 @@ public class Server {
             }
             case PRINT_STUDENTS_IN_GROUP: {
                 int groupid = (int) socketPackage.getObject1();
-                ArrayList<Student> students = databaseWorker.getStudentsInGroup(groupid);
-                responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, students, null);
+                ArrayList<StudentPackage> studentPackages = databaseWorker.getStudentsInGroup(groupid);
+                responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, studentPackages, null);
                 break;
             }
             case PRINT_ALL_GROUPS_OF_STUDENT: {
-                Student student = (Student) socketPackage.getObject1();
-                ArrayList<Group> groups = databaseWorker.getAllGroupsOfStudent(student.getIndex());
+                StudentPackage studentPackage = (StudentPackage) socketPackage.getObject1();
+                ArrayList<Group> groups = databaseWorker.getAllGroupsOfStudent(studentPackage.getIndex());
                 responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, groups, null);
                 break;
             }
             case PRINT_ALL_STUDENT_ATTENDANCES: {
-                Student student = (Student) socketPackage.getObject1();
+                StudentPackage studentPackage = (StudentPackage) socketPackage.getObject1();
                 int classTimeId = (int) socketPackage.getObject2();
-                ArrayList<Attendance> attendances = databaseWorker.getStudentAttendances(student.getIndex(), classTimeId);
+                ArrayList<Attendance> attendances = databaseWorker.getStudentAttendances(studentPackage.getIndex(), classTimeId);
                 responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, attendances, null);
                 break;
             }
             case PRINT_ALL_CLASS_TIMES_OF_STUDENT: {
-                Student student = (Student) socketPackage.getObject1();
-                ArrayList<ClassTime> classTimes = databaseWorker.getAllClassTimesOfStudent(student.getIndex());
+                StudentPackage studentPackage = (StudentPackage) socketPackage.getObject1();
+                ArrayList<ClassTime> classTimes = databaseWorker.getAllClassTimesOfStudent(studentPackage.getIndex());
                 responsePackage = new SocketPackage(RequestType.SERVER_ACCEPTED, classTimes, null);
                 break;
             }

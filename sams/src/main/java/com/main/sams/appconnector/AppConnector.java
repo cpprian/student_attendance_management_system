@@ -6,7 +6,7 @@ import com.main.sams.server.server.SocketPackage;
 import com.main.sams.student.Attendance;
 import com.main.sams.student.ClassTime;
 import com.main.sams.student.Group;
-import com.main.sams.student.Student;
+import com.main.sams.student.StudentPackage;
 
 import java.util.ArrayList;
 
@@ -34,13 +34,13 @@ public class AppConnector {
     }
 
     public void addStudent(String name, String surname, int index) {
-        Student student = new Student(name, surname, index);
-        client.sendRequest(new SocketPackage(RequestType.ADD_STUDENT, student, null));
+        StudentPackage studentPackage = new StudentPackage(name, surname, index);
+        client.sendRequest(new SocketPackage(RequestType.ADD_STUDENT, studentPackage, null));
     }
 
     public void deleteStudent(int index) {
-        Student student = new Student(null, null, index);
-        client.sendRequest(new SocketPackage(RequestType.DELETE_STUDENT, student, null));
+        StudentPackage studentPackage = new StudentPackage(null, null, index);
+        client.sendRequest(new SocketPackage(RequestType.DELETE_STUDENT, studentPackage, null));
     }
 
     public void addGroup(String name, int year) {
@@ -54,13 +54,13 @@ public class AppConnector {
     }
 
     public void addStudentToGroup(int index, int groupID) {
-        Student student = new Student(null, null, index);
-        client.sendRequest(new SocketPackage(RequestType.ADD_STUDENT_TO_GROUP, student, groupID));
+        StudentPackage studentPackage = new StudentPackage(null, null, index);
+        client.sendRequest(new SocketPackage(RequestType.ADD_STUDENT_TO_GROUP, studentPackage, groupID));
     }
 
     public void deleteStudentFromGroup(int index, int groupID) {
-        Student student = new Student(null, null, index);
-        client.sendRequest(new SocketPackage(RequestType.DELETE_STUDENT_FROM_GROUP, student, groupID));
+        StudentPackage studentPackage = new StudentPackage(null, null, index);
+        client.sendRequest(new SocketPackage(RequestType.DELETE_STUDENT_FROM_GROUP, studentPackage, groupID));
     }
 
     public void addClassTime(String name, int durationInMinutes, String classDate, String startTime, String endTime, String location, String description) {
@@ -69,13 +69,13 @@ public class AppConnector {
     }
 
     public void addAttendance(int index, int classTimeID) {
-        Student student = new Student(null, null, index);
-        client.sendRequest(new SocketPackage(RequestType.ADD_ATTENDANCE, student, classTimeID));
+        StudentPackage studentPackage = new StudentPackage(null, null, index);
+        client.sendRequest(new SocketPackage(RequestType.ADD_ATTENDANCE, studentPackage, classTimeID));
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<StudentPackage> getStudents() {
         client.sendRequest(new SocketPackage(RequestType.PRINT_ALL_STUDENTS, null, null));
-        return (ArrayList<Student>) client.receiveResponse().getObject1();
+        return (ArrayList<StudentPackage>) client.receiveResponse().getObject1();
     }
 
     public ArrayList<Group> getGroups() {
@@ -93,26 +93,26 @@ public class AppConnector {
         return (ArrayList<Attendance>) client.receiveResponse().getObject1();
     }
 
-    public ArrayList<Student> getStudentsInGroup(int groupID) {
+    public ArrayList<StudentPackage> getStudentsInGroup(int groupID) {
         client.sendRequest(new SocketPackage(RequestType.PRINT_STUDENTS_IN_GROUP, null, groupID));
-        return (ArrayList<Student>) client.receiveResponse().getObject1();
+        return (ArrayList<StudentPackage>) client.receiveResponse().getObject1();
     }
 
     public ArrayList<Group> getGroupsOfStudent(int index) {
-        Student student = new Student(null, null, index);
-        client.sendRequest(new SocketPackage(RequestType.PRINT_ALL_GROUPS_OF_STUDENT, student, null));
+        StudentPackage studentPackage = new StudentPackage(null, null, index);
+        client.sendRequest(new SocketPackage(RequestType.PRINT_ALL_GROUPS_OF_STUDENT, studentPackage, null));
         return (ArrayList<Group>) client.receiveResponse().getObject1();
     }
 
     public ArrayList<Attendance> getAttendancesOfStudent(int index) {
-        Student student = new Student(null, null, index);
-        client.sendRequest(new SocketPackage(RequestType.PRINT_ALL_STUDENT_ATTENDANCES, student, null));
+        StudentPackage studentPackage = new StudentPackage(null, null, index);
+        client.sendRequest(new SocketPackage(RequestType.PRINT_ALL_STUDENT_ATTENDANCES, studentPackage, null));
         return (ArrayList<Attendance>) client.receiveResponse().getObject1();
     }
 
     public ArrayList<Attendance> getClassTimesOfStudent(int index) {
-        Student student = new Student(null, null, index);
-        client.sendRequest(new SocketPackage(RequestType.PRINT_ALL_CLASS_TIMES_OF_STUDENT, student, null));
+        StudentPackage studentPackage = new StudentPackage(null, null, index);
+        client.sendRequest(new SocketPackage(RequestType.PRINT_ALL_CLASS_TIMES_OF_STUDENT, studentPackage, null));
         return (ArrayList<Attendance>) client.receiveResponse().getObject1();
     }
 

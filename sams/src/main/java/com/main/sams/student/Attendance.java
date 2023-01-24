@@ -24,7 +24,7 @@ public class Attendance implements Serializable {
     /**
      * student is an object that store all the information about the student
      */
-    private Student student;
+    private StudentPackage studentPackage;
 
     /**
      * Attendance is a constructor that creates a new Attendance object.
@@ -32,10 +32,10 @@ public class Attendance implements Serializable {
      * @param classTime - class time
      * @param attendanceType - attendance type
      */
-    public Attendance(Student student, int attendanceType, ClassTime classTime) {
+    public Attendance(StudentPackage studentPackage, int attendanceType, ClassTime classTime) {
         this.classTime = classTime;
         this.attendanceType = AttendanceType.values()[attendanceType];
-        this.student = student;
+        this.studentPackage = studentPackage;
     }
 
     /**
@@ -79,16 +79,16 @@ public class Attendance implements Serializable {
      *
      * @return Student object
      */
-    public Student getStudent() {
-        return student;
+    public StudentPackage getStudent() {
+        return studentPackage;
     }
 
     /**
      * setStudent is a setter that sets the student.
      *
-     * @param student - student
+     * @param studentPackage - student
      */
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setStudent(StudentPackage studentPackage) {
+        this.studentPackage = studentPackage;
     }
 }

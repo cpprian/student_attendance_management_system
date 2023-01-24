@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS sgroup (
 
     public static String createStudentTable() {
         return """
-CREATE TABLE IF NOT EXISTS student (
+CREATE TABLE IF NOT EXISTS studentPackage (
     studentid       INT NOT NULL AUTO_INCREMENT,
     studentname     VARCHAR(25) NOT NULL,
     studentsurname  VARCHAR(25) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS studentgroup (
     studentid       INT NOT NULL,
     groupid         INT NOT NULL,
     PRIMARY KEY (studentgroupid),
-    FOREIGN KEY (studentid) REFERENCES student(studentid) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (studentid) REFERENCES studentPackage(studentid) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (groupid) REFERENCES sgroup(groupid) ON DELETE CASCADE ON UPDATE CASCADE
 );
                 """;
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS attendance (
     attendancetype  INT NOT NULL,
     classtimeid     INT NOT NULL,
     PRIMARY KEY (attendanceid),
-    FOREIGN KEY (studentid) REFERENCES student(studentid) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (studentid) REFERENCES studentPackage(studentid) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (classtimeid) REFERENCES classtime(classtimeid) ON DELETE CASCADE ON UPDATE CASCADE
 );
                 """;

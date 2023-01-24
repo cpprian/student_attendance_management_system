@@ -127,19 +127,19 @@ public class DatabaseWorker {
         }
     }
 
-    public ArrayList<Student> getStudents() {
-        ArrayList<Student> students = new ArrayList<>();
+    public ArrayList<StudentPackage> getStudents() {
+        ArrayList<StudentPackage> studentPackages = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
                 Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllStudents());
             while (resultSet.next()) {
-                students.add(new Student(resultSet.getString("name"), resultSet.getString("surname"),
+                studentPackages.add(new StudentPackage(resultSet.getString("name"), resultSet.getString("surname"),
                         resultSet.getInt("studentnumber")));
             }
         } catch (SQLException e) {
             System.out.println("DatabaseWorker getStudents: Failed to get students, " + e.getMessage());
         }
-        return students;
+        return studentPackages;
     }
 
     public ArrayList<Group> getGroups() {
@@ -188,7 +188,7 @@ public class DatabaseWorker {
     private void iterAttendance(ArrayList<Attendance> attendances, ResultSet resultSet) throws SQLException {
         while (resultSet.next()) {
             attendances.add(new Attendance(
-                    new Student(resultSet.getString("name"), resultSet.getString("surname"),
+                    new StudentPackage(resultSet.getString("name"), resultSet.getString("surname"),
                             resultSet.getInt("studentnumber")),
                     resultSet.getInt("attendancetype"),
                     new ClassTime(resultSet.getString("classtimename"), resultSet.getInt("durationinminutes"),
@@ -199,19 +199,19 @@ public class DatabaseWorker {
         }
     }
 
-    public ArrayList<Student> getStudentsInGroup(int groupID) {
-        ArrayList<Student> students = new ArrayList<>();
+    public ArrayList<StudentPackage> getStudentsInGroup(int groupID) {
+        ArrayList<StudentPackage> studentPackages = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
                 Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllStudentsInGroup(groupID));
             while (resultSet.next()) {
-                students.add(new Student(resultSet.getString("name"), resultSet.getString("surname"),
+                studentPackages.add(new StudentPackage(resultSet.getString("name"), resultSet.getString("surname"),
                         resultSet.getInt("studentnumber")));
             }
         } catch (SQLException e) {
             System.out.println("DatabaseWorker getStudentsInGroup: Failed to get students in group, " + e.getMessage());
         }
-        return students;
+        return studentPackages;
     }
 
     public ArrayList<Group> getAllGroupsOfStudent(int studentNumber) {

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @version 1.1
  * @since 2023-01-06
  */
-public class Student implements Serializable {
+public class StudentPackage implements Serializable {
     /**
      * name is a String that represents the student's name
      */
@@ -37,7 +37,7 @@ public class Student implements Serializable {
      * @param surname - student's surname
      * @param index - student's index
      */
-    public Student(String name, String surname, int index) {
+    public StudentPackage(String name, String surname, int index) {
         this.name = name;
         this.surname = surname;
         this.index = index;

@@ -1,6 +1,6 @@
 package com.main.sams.server.database;
 
-import com.main.sams.student.AttendanceType;
+import com.main.sams.studentPackage.AttendanceType;
 
 /**
  * StudentDbUtil is a class that contains methods to interact with the database, it returns a statement for the database.
@@ -12,16 +12,16 @@ import com.main.sams.student.AttendanceType;
 public class StudentDbUtil {
 
     /**
-     * addStudent method adds a student to the database.
+     * addStudent method adds a studentPackage to the database.
      *
-     * @param name the name of the student
-     * @param surname the surname of the student
-     * @param studentNumber the student number of the student
+     * @param name the name of the studentPackage
+     * @param surname the surname of the studentPackage
+     * @param studentNumber the studentPackage number of the studentPackage
      * @return
      */
     public static String addStudent(String name, String surname, int studentNumber) {
         return """
-                INSERT INTO student (studentname, studentsurname, studentnumber)
+                INSERT INTO studentPackage (studentname, studentsurname, studentnumber)
                 VALUES ('%s', '%s', %d);
                 """.formatted(name, surname, studentNumber);
     }
@@ -29,7 +29,7 @@ public class StudentDbUtil {
 
     public static String deleteStudent(int studentNumber) {
         return """
-                DELETE FROM student
+                DELETE FROM studentPackage
                 WHERE studentnumber = %d;
                 """.formatted(studentNumber);
     }
@@ -51,14 +51,14 @@ public class StudentDbUtil {
     public static String addStudentToGroup(int studentNumber, int groupID) {
         return """
                 INSERT INTO studentgroup (studentid, groupid)
-                VALUES ((SELECT studentid FROM student WHERE studentnumber = %d), %d);
+                VALUES ((SELECT studentid FROM studentPackage WHERE studentnumber = %d), %d);
                 """.formatted(studentNumber, groupID);
     }
 
     public static String deleteStudentFromGroup(int studentNumber, int groupID) {
         return """
                 DELETE FROM studentgroup
-                WHERE studentid = (SELECT studentid FROM student WHERE studentnumber = %d) AND groupid = %d;
+                WHERE studentid = (SELECT studentid FROM studentPackage WHERE studentnumber = %d) AND groupid = %d;
                 """.formatted(studentNumber, groupID);
     }
 
@@ -73,24 +73,24 @@ public class StudentDbUtil {
     public static String addAttendance(int studentNumber, AttendanceType attendanceType, int classTimeID) {
         return """
                 INSERT INTO attendance (studentid, attendancetype, classtimeid)
-                VALUES ((SELECT studentid FROM student WHERE studentnumber = %d), %d, %d);
+                VALUES ((SELECT studentid FROM studentPackage WHERE studentnumber = %d), %d, %d);
                 """.formatted(studentNumber, attendanceType, classTimeID);
     }
 
     public static String printStudentAttendance(int studentNumber, int classTimeID) {
         return """
-                SELECT student.studentname, student.studentsurname, student.studentnumber, attendance.attendancetype, classtime.classtimename, classtime.classtimedate, classtime.classtimestarttime, classtime.classtimeendtime
-                FROM student
-                INNER JOIN attendance ON student.studentid = attendance.studentid
+                SELECT studentPackage.studentname, studentPackage.studentsurname, studentPackage.studentnumber, attendance.attendancetype, classtime.classtimename, classtime.classtimedate, classtime.classtimestarttime, classtime.classtimeendtime
+                FROM studentPackage
+                INNER JOIN attendance ON studentPackage.studentid = attendance.studentid
                 INNER JOIN classtime ON attendance.classtimeid = classtime.classtimeid
-                WHERE student.studentnumber = %d AND attendance.classtimeid = %d;
+                WHERE studentPackage.studentnumber = %d AND attendance.classtimeid = %d;
                 """.formatted(studentNumber, classTimeID);
     }
 
     public static String printAllStudents() {
         return """
                 SELECT studentname, studentsurname, studentnumber
-                FROM student;
+                FROM studentPackage;
                 """;
     }
 
@@ -110,18 +110,18 @@ public class StudentDbUtil {
 
     public static String printAllAttendances() {
         return """
-                SELECT student.studentname, student.studentsurname, student.studentnumber, attendance.attendancetype, classtime.classtimename, classtime.classtimedate, classtime.classtimestarttime, classtime.classtimeendtime, classtime.location, classtime.description
-                FROM student
-                INNER JOIN attendance ON student.studentid = attendance.studentid
+                SELECT studentPackage.studentname, studentPackage.studentsurname, studentPackage.studentnumber, attendance.attendancetype, classtime.classtimename, classtime.classtimedate, classtime.classtimestarttime, classtime.classtimeendtime, classtime.location, classtime.description
+                FROM studentPackage
+                INNER JOIN attendance ON studentPackage.studentid = attendance.studentid
                 INNER JOIN classtime ON attendance.classtimeid = classtime.classtimeid;
                 """;
     }
 
     public static String printAllStudentsInGroup(int groupID) {
         return """
-                SELECT student.studentname, student.studentsurname, student.studentnumber
-                FROM student
-                INNER JOIN studentgroup ON student.studentid = studentgroup.studentid
+                SELECT studentPackage.studentname, studentPackage.studentsurname, studentPackage.studentnumber
+                FROM studentPackage
+                INNER JOIN studentgroup ON studentPackage.studentid = studentgroup.studentid
                 WHERE studentgroup.groupid = %d;
                 """.formatted(groupID);
     }
@@ -129,28 +129,28 @@ public class StudentDbUtil {
     public static String printAllGroupsOfStudent(int studentNumber) {
         return """
                 SELECT studentgroup.groupname, studentgroup.groupyear
-                FROM student
-                INNER JOIN studentgroup ON student.studentid = studentgroup.studentid
-                WHERE student.studentnumber = %d;
+                FROM studentPackage
+                INNER JOIN studentgroup ON studentPackage.studentid = studentgroup.studentid
+                WHERE studentPackage.studentnumber = %d;
                 """.formatted(studentNumber);
     }
 
     public static String printAllClassTimesOfStudent(int studentNumber) {
         return """
                 SELECT classtime.classtimename, classtime.durationinminutes, classtime.classtimedate, classtime.classtimestarttime, classtime.classtimeendtime, classtime.location, classtime.description
-                FROM student
-                INNER JOIN attendance ON student.studentid = attendance.studentid
+                FROM studentPackage
+                INNER JOIN attendance ON studentPackage.studentid = attendance.studentid
                 INNER JOIN classtime ON attendance.classtimeid = classtime.classtimeid
-                WHERE student.studentnumber = %d;
+                WHERE studentPackage.studentnumber = %d;
                 """.formatted(studentNumber);
     }
 
     public static String printAllClassTimesOfGroup(int groupID) {
         return """
                 SELECT classtime.classtimename, classtime.durationinminutes, classtime.classtimedate, classtime.starttime, classtime.endtime, classtime.location, classtime.description
-                FROM student
-                INNER JOIN studentgroup ON student.studentid = studentgroup.studentid
-                INNER JOIN attendance ON student.studentid = attendance.studentid
+                FROM studentPackage
+                INNER JOIN studentgroup ON studentPackage.studentid = studentgroup.studentid
+                INNER JOIN attendance ON studentPackage.studentid = attendance.studentid
                 INNER JOIN classtime ON attendance.classtimeid = classtime.classtimeid
                 WHERE studentgroup.groupid = %d;
                 """.formatted(groupID);
@@ -158,10 +158,10 @@ public class StudentDbUtil {
 
     public static String printGroupAttendance(int groupID, int classTimeID) {
         return """
-                SELECT student.studentname, student.studentsurname, student.studentnumber, attendance.attendancetype, classtime.classtimename, classtime.classtimedate, classtime.classtimestarttime, classtime.classtimeendtime
-                FROM student
-                INNER JOIN studentgroup ON student.studentid = studentgroup.studentid
-                INNER JOIN attendance ON student.studentid = attendance.studentid
+                SELECT studentPackage.studentname, studentPackage.studentsurname, studentPackage.studentnumber, attendance.attendancetype, classtime.classtimename, classtime.classtimedate, classtime.classtimestarttime, classtime.classtimeendtime
+                FROM studentPackage
+                INNER JOIN studentgroup ON studentPackage.studentid = studentgroup.studentid
+                INNER JOIN attendance ON studentPackage.studentid = attendance.studentid
                 INNER JOIN classtime ON attendance.classtimeid = classtime.classtimeid
                 WHERE studentgroup.groupid = %d AND attendance.classtimeid = %d;
                 """.formatted(groupID, classTimeID);
