@@ -208,6 +208,9 @@ public class Server {
             while (clientSocket.isConnected()) {
                 // read from client
                 String received = in.readLine();
+                if (received == null) {
+                    break;
+                }
                 logger.log(System.Logger.Level.INFO, "Received: " + received);
                 // parse the package
                 SocketPackage socketPackage = gson.fromJson(received, SocketPackage.class);

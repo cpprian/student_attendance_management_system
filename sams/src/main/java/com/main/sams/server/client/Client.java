@@ -57,7 +57,8 @@ public class Client {
 
     public void sendRequest(String json) {
         try {
-            out.write(json);
+            out.write(json + "\n");
+            out.flush();
             logger.log(System.Logger.Level.INFO, "Sent request to server");
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, "Client sendRequest: Failed to send request to server " + e.getMessage());

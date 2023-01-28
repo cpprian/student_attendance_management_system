@@ -9,6 +9,8 @@ import org.controlsfx.control.spreadsheet.SpreadsheetCell;
 
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 public class AppConnector {
     private static AppConnector instance = null;
     private Client client = null;
@@ -41,6 +43,8 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, studentJson, 0, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void deleteStudent(int index) {
@@ -50,6 +54,8 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, studentJson, 0, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void addGroup(String name, int year) {
@@ -59,6 +65,8 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, groupJson,0, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void deleteGroup(String name, int year) {
@@ -68,6 +76,8 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, groupJson, 0, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void addStudentToGroup(int index, int groupID) {
@@ -77,6 +87,8 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, studentJson, groupID, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void deleteStudentFromGroup(int index, int groupID) {
@@ -86,6 +98,8 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, studentJson, groupID, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void addClassTime(String name, int durationInMinutes, String classDate, String startTime, String endTime, String location, String description) {
@@ -95,6 +109,8 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, classTimeJson, 0, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void addAttendance(int index, int classTimeID) {
@@ -104,6 +120,8 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, studentJson, classTimeID, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public StudentPackage[] getStudents() {
@@ -120,6 +138,13 @@ public class AppConnector {
         SocketPackage socketPackage = new SocketPackage(requestType, null, 0, 0);
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
+        for (int i = 0; i < 1000; i++) {
+            try {
+                sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         SocketPackage response = client.receiveResponse();
         System.out.println(response.getDataPackage());
         if (response.getRequestType() == RequestType.SERVER_REJECTED) {
