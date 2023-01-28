@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @version 1.1
  * @since 2023-01-06
  */
-public class StudentPackage extends MyObject implements Serializable {
+public class StudentPackage implements Serializable {
     /**
      * name is a String that represents the student's name
      */
