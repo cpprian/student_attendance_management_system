@@ -40,7 +40,8 @@ public class AppConnector {
         ArrayList<MyObject> studentPackages = new ArrayList<>();
         studentPackages.add(studentPackage);
         SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
     }
 
     public void deleteStudent(int index) {
@@ -49,7 +50,8 @@ public class AppConnector {
         ArrayList<MyObject> studentPackages = new ArrayList<>();
         studentPackages.add(studentPackage);
         SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
     }
 
     public void addGroup(String name, int year) {
@@ -58,7 +60,8 @@ public class AppConnector {
         ArrayList<MyObject> groups = new ArrayList<>();
         groups.add(group);
         SocketPackage socketPackage = new SocketPackage(requestType, groups, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
     }
 
     public void deleteGroup(String name, int year) {
@@ -67,7 +70,8 @@ public class AppConnector {
         ArrayList<MyObject> groups = new ArrayList<>();
         groups.add(group);
         SocketPackage socketPackage = new SocketPackage(requestType, groups, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
     }
 
     public void addStudentToGroup(int index, int groupID) {
@@ -76,7 +80,8 @@ public class AppConnector {
         ArrayList<MyObject> studentPackages = new ArrayList<>();
         studentPackages.add(studentPackage);
         SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
     }
 
     public void deleteStudentFromGroup(int index, int groupID) {
@@ -85,7 +90,8 @@ public class AppConnector {
         ArrayList<MyObject> studentPackages = new ArrayList<>();
         studentPackages.add(studentPackage);
         SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
     }
 
     public void addClassTime(String name, int durationInMinutes, String classDate, String startTime, String endTime, String location, String description) {
@@ -94,7 +100,8 @@ public class AppConnector {
         ArrayList<MyObject> classTimes = new ArrayList<>();
         classTimes.add(classTime);
         SocketPackage socketPackage = new SocketPackage(requestType, classTimes, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
     }
 
     public void addAttendance(int index, int classTimeID) {
@@ -103,13 +110,15 @@ public class AppConnector {
         ArrayList<MyObject> studentPackages = new ArrayList<>();
         studentPackages.add(studentPackage);
         SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, classTimeID, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
     }
 
     public ArrayList<StudentPackage> getStudents() {
         RequestType requestType = RequestType.PRINT_ALL_STUDENTS;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<StudentPackage> studentPackages = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -121,7 +130,8 @@ public class AppConnector {
     public ArrayList<Group> getGroups() {
         RequestType requestType = RequestType.PRINT_ALL_GROUPS;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<Group> groups = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -133,7 +143,8 @@ public class AppConnector {
     public ArrayList<ClassTime> getClassTimes() {
         RequestType requestType = RequestType.PRINT_ALL_CLASS_TIMES;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<ClassTime> classTimes = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -145,7 +156,8 @@ public class AppConnector {
     public ArrayList<Attendance> getAttendances() {
         RequestType requestType = RequestType.PRINT_ALL_ATTENDANCES;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<Attendance> attendances = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -157,7 +169,8 @@ public class AppConnector {
     public ArrayList<StudentPackage> getStudentsInGroup(int groupID) {
         RequestType requestType = RequestType.PRINT_STUDENTS_IN_GROUP;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<StudentPackage> studentPackages = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -169,7 +182,8 @@ public class AppConnector {
     public ArrayList<Group> getGroupsOfStudent(int index) {
         RequestType requestType = RequestType.PRINT_ALL_GROUPS_OF_STUDENT;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, index, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<Group> groups = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -184,7 +198,8 @@ public class AppConnector {
         ArrayList<MyObject> studentPackages = new ArrayList<>();
         studentPackages.add(studentPackage);
         SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, classTimeID, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<Attendance> attendances = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -196,7 +211,8 @@ public class AppConnector {
     public ArrayList<Attendance> getClassTimesOfStudent(int index) {
         RequestType requestType = RequestType.PRINT_ALL_CLASS_TIMES_OF_STUDENT;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, index, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<Attendance> attendances = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -208,7 +224,8 @@ public class AppConnector {
     public ArrayList<ClassTime> getClassTimesOfGroup(int groupID) {
         RequestType requestType = RequestType.PRINT_ALL_CLASS_TIMES_OF_GROUP;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<ClassTime> classTimes = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {
@@ -220,7 +237,8 @@ public class AppConnector {
     public ArrayList<Attendance> getAttendancesOfGroup(int groupID, int classTimeID) {
         RequestType requestType = RequestType.PRINT_GROUP_ATTENDANCE;
         SocketPackage socketPackage = new SocketPackage(requestType, null, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
         ArrayList<Attendance> attendances = new ArrayList<>();
         for (MyObject myObject : response.getMyObjects1()) {

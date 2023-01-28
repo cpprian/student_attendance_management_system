@@ -54,9 +54,8 @@ public class Client {
         }
     }
 
-    public void sendRequest(SocketPackage socketPackage) {
+    public void sendRequest(String json) {
         try {
-            String json = gson.toJson(socketPackage);
             out.writeUTF(json);
             System.out.println("Client sent: " + json);
             logger.log(System.Logger.Level.INFO, "Sent request to server");

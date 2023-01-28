@@ -136,75 +136,89 @@ public class MainController implements Initializable {
         this.dziennikObecności = new DziennikObecności();
 
         this.connector = AppConnector.run("172.16.213.132");
-        /*
-        dziennikObecności.dodajGrupe("IO1");
-        System.out.println(dziennikObecności.getGrupy().get(0).getGroupName());
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 423123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 124123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 893123);
+//        dziennikObecności.dodajGrupe("IO1");
+//        System.out.println(dziennikObecności.getGrupy().get(0).getGroupName());
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 423123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 124123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 893123);
+//
+//        for (Student student : dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).getStudents()) {
+//            System.out.println(student.getName());
+//            System.out.println(student.getSurname());
+//            System.out.println(student.getIndex());
+//        }
+//        System.out.println("\n\n");
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).deleteStudent(893123);
+//
+//
+//        for (Student student : dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).getStudents()) {
+//            System.out.println(student.getName());
+//            System.out.println(student.getSurname());
+//            System.out.println(student.getIndex());
+//        }
 
-        for (Student student : dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).getStudents()) {
-            System.out.println(student.getName());
-            System.out.println(student.getSurname());
-            System.out.println(student.getIndex());
-        }
-        System.out.println("\n\n");
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).deleteStudent(893123);
+//        dziennikObecności.usunGrupe("IO1");
+//        System.out.println(dziennikObecności.getGrupy().size());
+//
+//        dziennikObecności.dodajGrupe("IO1");
+//        System.out.println(dziennikObecności.getGrupy().get(0).getGroupName());
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 423123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 124123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 893123);
+//
+//        dziennikObecności.dodajGrupe("IO2");
+//        System.out.println(dziennikObecności.getGrupy().get(1).getGroupName());
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 423123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 124123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 893123);
+//
+//        dziennikObecności.dodajGrupe("IO3");
+//        System.out.println(dziennikObecności.getGrupy().get(2).getGroupName());
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 423123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 124123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 123123);
+//        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 893123);
+//
+//        dziennikObecności.dodanieTerminu("IO1", "19-12-2222");
+//        dziennikObecności.dodanieTerminu("IO2", "10-12-2222");
+//        dziennikObecności.dodanieTerminu("IO3", "13-12-2222");
 
+//        System.out.println(dziennikObecności.getTerminy().get(0).getObecności());
+//        System.out.println(dziennikObecności.getTerminy().get(1).getObecności());
+//        System.out.println(dziennikObecności.getTerminy().get(2).getObecności());
 
-        for (Student student : dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).getStudents()) {
-            System.out.println(student.getName());
-            System.out.println(student.getSurname());
-            System.out.println(student.getIndex());
-        }
+//        dziennikObecności.zapiszObcnosciDoStudenta();
 
-        dziennikObecności.usunGrupe("IO1");
-        System.out.println(dziennikObecności.getGrupy().size());
+        connector.addStudent("Janek", "Zacier", 423123);
+        connector.addStudent("Kanej", "Cierza", 123123);
+        connector.addStudent("Maciej", "Laciej", 143124);
 
-        dziennikObecności.dodajGrupe("IO1");
-        System.out.println(dziennikObecności.getGrupy().get(0).getGroupName());
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 423123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 124123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 893123);
+        connector.addGroup("IO1", 2023);
+        connector.addGroup("IO2", 2023);
+        connector.addGroup("IO3", 2023);
 
-        dziennikObecności.dodajGrupe("IO2");
-        System.out.println(dziennikObecności.getGrupy().get(1).getGroupName());
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 423123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 124123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Zanek", "Zacier", 893123);
+        connector.addStudentToGroup(423123, 1);
+        connector.addStudentToGroup(423123, 2);
+        connector.addStudentToGroup(423123, 3);
+        connector.addStudentToGroup(123123, 2);
+        connector.addStudentToGroup(143124, 3);
 
-        dziennikObecności.dodajGrupe("IO3");
-        System.out.println(dziennikObecności.getGrupy().get(2).getGroupName());
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 423123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 124123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 123123);
-        dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("panek", "Zacier", 893123);
-
-        dziennikObecności.dodanieTerminu("IO1", "19-12-2222");
-        dziennikObecności.dodanieTerminu("IO2", "10-12-2222");
-        dziennikObecności.dodanieTerminu("IO3", "13-12-2222");
-
-        System.out.println(dziennikObecności.getTerminy().get(0).getObecności());
-        System.out.println(dziennikObecności.getTerminy().get(1).getObecności());
-        System.out.println(dziennikObecności.getTerminy().get(2).getObecności());
-
-        dziennikObecności.zapiszObcnosciDoStudenta();*/
-        System.out.println("asd");
         for(Group group: connector.getGroups())
         {
             dziennikObecności.dodajGrupe(group.getName());
         }
+
         for(Grupa grupa: dziennikObecności.getGrupy()){
             for(StudentPackage student1: connector.getStudentsInGroup(dziennikObecności.getGrupy().indexOf(grupa))){
                 grupa.addStudent(student1.getName(),student1.getSurname(),student1.getIndex());
