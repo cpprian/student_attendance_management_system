@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @version 1.1
  * @since 2023-01-06
  */
-public class Group implements Serializable {
+public class Group extends MyObject implements Serializable {
     /**
      * name is a String that represents the group's name
      */

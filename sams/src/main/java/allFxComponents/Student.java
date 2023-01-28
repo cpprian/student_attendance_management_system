@@ -1,4 +1,4 @@
-package com.main.sams.allFxComponents;
+package allFxComponents;
 
 import javafx.scene.control.Button;
 

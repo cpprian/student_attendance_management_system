@@ -7,12 +7,13 @@ module com.main.sams {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires com.google.gson;
 
     opens com.main.sams to javafx.fxml;
     exports com.main.sams;
 
-    opens com.main.sams.allFxComponents to javafx.fxml;
-    exports com.main.sams.allFxComponents;
-    exports com.main.sams.allFxComponents.Controllers;
-    opens com.main.sams.allFxComponents.Controllers to javafx.fxml;
+    opens allFxComponents to javafx.fxml;
+    exports allFxComponents;
+    exports allFxComponents.Controllers;
+    opens allFxComponents.Controllers to javafx.fxml;
 }

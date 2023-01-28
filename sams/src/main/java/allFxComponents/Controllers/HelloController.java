@@ -1,4 +1,4 @@
-package com.main.sams.allFxComponents.Controllers;
+package allFxComponents.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;

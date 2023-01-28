@@ -1,4 +1,4 @@
-package com.main.sams.allFxComponents;
+package allFxComponents;
 
 import com.main.sams.student.ClassTime;
 import com.main.sams.student.Group;
@@ -17,8 +17,8 @@ import com.main.sams.appconnector.AppConnector;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.main.sams.allFxComponents.ObecnośćRodzaj.NIEOBECNY;
-import static com.main.sams.allFxComponents.ObecnośćRodzaj.OBECNY;
+import static allFxComponents.ObecnośćRodzaj.NIEOBECNY;
+import static allFxComponents.ObecnośćRodzaj.OBECNY;
 
 public class MainController implements Initializable {
     private DziennikObecności dziennikObecności;

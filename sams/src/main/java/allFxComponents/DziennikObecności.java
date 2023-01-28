@@ -1,9 +1,9 @@
-package com.main.sams.allFxComponents;
+package allFxComponents;
 
 import java.util.ArrayList;
 
-import static com.main.sams.allFxComponents.ObecnośćRodzaj.NIEOBECNY;
-import static com.main.sams.allFxComponents.ObecnośćRodzaj.OBECNY;
+import static allFxComponents.ObecnośćRodzaj.NIEOBECNY;
+import static allFxComponents.ObecnośćRodzaj.OBECNY;
 
 public class DziennikObecności {
     private ArrayList<Termin> terminy;
