@@ -47,12 +47,12 @@ public class Server {
     /**
      * out is used to write to the client
      */
-    private DataOutputStream out = null;
+    private BufferedWriter out = null;
 
     /**
      * in is used to read from the client
      */
-    private DataInputStream in = null;
+    private BufferedReader in = null;
 
     /**
      * databaseWorker is used to communicate with the database
@@ -160,8 +160,8 @@ public class Server {
             // handle one client at a time
             clientSocket = serverSocket.accept();
             logger.log(System.Logger.Level.INFO, "Client connected: " + clientSocket.getInetAddress().getHostAddress());
-            out = new DataOutputStream(clientSocket.getOutputStream());
-            in = new DataInputStream(clientSocket.getInputStream());
+            out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
             receivePackage();
         } catch (Exception e) {
@@ -206,7 +206,7 @@ public class Server {
         try {
             while (clientSocket.isConnected()) {
                 // read from client
-                String received = in.readUTF();
+                String received = in.readLine();
                 logger.log(System.Logger.Level.INFO, "Received: " + received);
                 // parse the package
                 SocketPackage socketPackage = gson.fromJson(received, SocketPackage.class);
@@ -247,7 +247,9 @@ public class Server {
                 return;
             }
             String json = gson.toJson(socketPackage);
-            out.writeUTF(json);
+            System.out.println("Sending: " + json);
+            out.write(json + "\n");
+            out.flush();
             logger.log(System.Logger.Level.INFO, "Sent package to client: " + socketPackage);
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, "Server sendPackage: Server failed to send package");

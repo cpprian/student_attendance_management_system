@@ -55,7 +55,7 @@ public class DatabaseWorker {
 
     public void addStudent(String name, String surname, int studentNumber) {
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             statement.execute(StudentDbUtil.addStudent(name, surname, studentNumber));
         } catch (SQLException e) {
             System.out.println("DatabaseWorker addStudent: Failed to add student, " + e.getMessage());
@@ -64,7 +64,7 @@ public class DatabaseWorker {
 
     public void deleteStudent(int studentNumber) {
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             statement.execute(StudentDbUtil.deleteStudent(studentNumber));
         } catch (SQLException e) {
             System.out.println("DatabaseWorker deleteStudent: Failed to delete student, " + e.getMessage());
@@ -73,7 +73,7 @@ public class DatabaseWorker {
 
     public void addGroup(String groupName, int groupYear) {
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             statement.execute(StudentDbUtil.addGroup(groupName, groupYear));
         } catch (SQLException e) {
             System.out.println("DatabaseWorker addGroup: Failed to add group, " + e.getMessage());
@@ -82,7 +82,7 @@ public class DatabaseWorker {
 
     public void deleteGroup(int groupID) {
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             statement.execute(StudentDbUtil.deleteGroup(groupID));
         } catch (SQLException e) {
             System.out.println("DatabaseWorker deleteGroup: Failed to delete group, " + e.getMessage());
@@ -91,7 +91,7 @@ public class DatabaseWorker {
 
     public void addStudentToGroup(int studentNumber, int groupID) {
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             statement.execute(StudentDbUtil.addStudentToGroup(studentNumber, groupID));
         } catch (SQLException e) {
             System.out.println("DatabaseWorker addStudentToGroup: Failed to add student to group, " + e.getMessage());
@@ -100,7 +100,7 @@ public class DatabaseWorker {
 
     public void deleteStudentFromGroup(int studentNumber, int groupID) {
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             statement.execute(StudentDbUtil.deleteStudentFromGroup(studentNumber, groupID));
         } catch (SQLException e) {
             System.out.println("DatabaseWorker deleteStudentFromGroup: Failed to delete student from group, " + e.getMessage());
@@ -110,7 +110,7 @@ public class DatabaseWorker {
     public void addClassTime(String className, int durationInMinutes, String classTimeDate,
                              String classTimeStartTime, String classTimeEndTime, String location, String description) {
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             statement.execute(StudentDbUtil.addClassTime(className, durationInMinutes, classTimeDate,
                     classTimeStartTime, classTimeEndTime, location, description));
         } catch (SQLException e) {
@@ -120,7 +120,7 @@ public class DatabaseWorker {
 
     public void addAttendance(int studentNumber, AttendanceType attendanceType, int classTimeID) {
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             statement.execute(StudentDbUtil.addAttendance(studentNumber, attendanceType, classTimeID));
         } catch (SQLException e) {
             System.out.println("DatabaseWorker addAttendance: Failed to add attendance, " + e.getMessage());
@@ -130,7 +130,7 @@ public class DatabaseWorker {
     public ArrayList<StudentPackage> getStudents() {
         ArrayList<StudentPackage> studentPackages = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllStudents());
             while (resultSet.next()) {
                 studentPackages.add(new StudentPackage(resultSet.getString("name"), resultSet.getString("surname"),
@@ -145,7 +145,7 @@ public class DatabaseWorker {
     public ArrayList<Group> getGroups() {
         ArrayList<Group> groups = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllGroups());
             while (resultSet.next()) {
                 groups.add(new Group(resultSet.getString("groupname"), resultSet.getInt("groupyear")));
@@ -153,13 +153,14 @@ public class DatabaseWorker {
         } catch (SQLException e) {
             System.out.println("DatabaseWorker getGroups: Failed to get groups, " + e.getMessage());
         }
+        System.out.println("DatabaseWorker getGroups: " + groups);
         return groups;
     }
 
     public ArrayList<ClassTime> getClassTimes() {
         ArrayList<ClassTime> classTimes = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllClassTimes());
             while (resultSet.next()) {
                 classTimes.add(new ClassTime(resultSet.getString("classtimename"), resultSet.getInt("durationinminutes"),
@@ -176,7 +177,7 @@ public class DatabaseWorker {
     public ArrayList<Attendance> getAttendances() {
         ArrayList<Attendance> attendances = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllAttendances());
             iterAttendance(attendances, resultSet);
         } catch (SQLException e) {
@@ -202,7 +203,7 @@ public class DatabaseWorker {
     public ArrayList<StudentPackage> getStudentsInGroup(int groupID) {
         ArrayList<StudentPackage> studentPackages = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllStudentsInGroup(groupID));
             while (resultSet.next()) {
                 studentPackages.add(new StudentPackage(resultSet.getString("name"), resultSet.getString("surname"),
@@ -217,7 +218,7 @@ public class DatabaseWorker {
     public ArrayList<Group> getAllGroupsOfStudent(int studentNumber) {
         ArrayList<Group> groups = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllGroupsOfStudent(studentNumber));
             while (resultSet.next()) {
                 groups.add(new Group(resultSet.getString("groupname"), resultSet.getInt("groupyear")));
@@ -231,7 +232,7 @@ public class DatabaseWorker {
     public ArrayList<Attendance> getStudentAttendances(int studentNumber, int classTimeID) {
         ArrayList<Attendance> attendances = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printStudentAttendance(studentNumber, classTimeID));
             iterAttendance(attendances, resultSet);
         } catch (SQLException e) {
@@ -243,7 +244,7 @@ public class DatabaseWorker {
     public ArrayList<ClassTime> getAllClassTimesOfStudent(int studentNumber) {
         ArrayList<ClassTime> classTimes = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllClassTimesOfStudent(studentNumber));
             while (resultSet.next()) {
                 classTimes.add(new ClassTime(resultSet.getString("classtimename"), resultSet.getInt("durationinminutes"),
@@ -260,7 +261,7 @@ public class DatabaseWorker {
     public ArrayList<ClassTime> getAllClassTimesOfGroup(int groupID) {
         ArrayList<ClassTime> classTimes = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printAllClassTimesOfGroup(groupID));
             while (resultSet.next()) {
                 classTimes.add(new ClassTime(resultSet.getString("classtimename"), resultSet.getInt("durationinminutes"),
@@ -277,7 +278,7 @@ public class DatabaseWorker {
     public ArrayList<Attendance> getGroupAttendances(int groupID, int classTimeID) {
         ArrayList<Attendance> attendances = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(getConnectionString(), USERNAME, PASSWORD);
-                Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(StudentDbUtil.printGroupAttendance(groupID, classTimeID));
             iterAttendance(attendances, resultSet);
         } catch (SQLException e) {

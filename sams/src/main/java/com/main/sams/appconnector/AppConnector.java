@@ -121,6 +121,7 @@ public class AppConnector {
         String json = gson.toJson(socketPackage);
         client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
+        System.out.println(response.getDataPackage());
         if (response.getRequestType() == RequestType.SERVER_REJECTED) {
             System.out.println("getGroups() rejected");
             return null;
