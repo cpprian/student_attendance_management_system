@@ -7,6 +7,7 @@ import java.io.*;
 
 import com.google.gson.Gson;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Client {
     private static Client instance = null;
@@ -23,8 +24,8 @@ public class Client {
             logger = System.getLogger("Client");
             gson = new Gson();
             clientSocket = new Socket(hostname, PORT);
-            out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8));
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, "Client constructor: Client failed to connect to server");
             System.exit(1);

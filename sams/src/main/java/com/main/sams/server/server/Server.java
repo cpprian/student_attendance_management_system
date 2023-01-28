@@ -7,6 +7,7 @@ import com.main.sams.student.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
@@ -160,8 +161,8 @@ public class Server {
             // handle one client at a time
             clientSocket = serverSocket.accept();
             logger.log(System.Logger.Level.INFO, "Client connected: " + clientSocket.getInetAddress().getHostAddress());
-            out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8));
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
 
             receivePackage();
         } catch (Exception e) {
