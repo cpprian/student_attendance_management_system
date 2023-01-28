@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @version 1.1
  * @since 2023-01-06
  */
-public class Group extends MyObject implements Serializable {
+public class Group implements Serializable {
     /**
      * name is a String that represents the group's name
      */
@@ -48,5 +48,10 @@ public class Group extends MyObject implements Serializable {
      */
     public int getYear() {
         return year;
+    }
+
+    @Override
+    public String toString() {
+        return "Group [name=" + name + ", year=" + year + "]";
     }
 }

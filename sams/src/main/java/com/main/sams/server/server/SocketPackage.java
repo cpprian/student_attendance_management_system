@@ -1,9 +1,6 @@
 package com.main.sams.server.server;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import com.main.sams.student.MyObject;
 
 /**
  * SocketPackage is a class that is used to send data between the server and the client.
@@ -17,13 +14,11 @@ public class SocketPackage implements Serializable {
     private RequestType requestType;
     private int id1;
     private int id2;
-    private ArrayList<MyObject> myObjects1;
-    private ArrayList<MyObject> myObjects2;
+    private String dataPackage;
 
-    public SocketPackage(RequestType requestType, ArrayList<MyObject> myObjects1, ArrayList<MyObject> myObjects2, int id1, int id2) {
+    public SocketPackage(RequestType requestType, String dataPackage, int id1, int id2) {
         this.requestType = requestType;
-        this.myObjects1 = myObjects1;
-        this.myObjects2 = myObjects2;
+        this.dataPackage = dataPackage;
         this.id1 = id1;
         this.id2 = id2;
     }
@@ -32,12 +27,8 @@ public class SocketPackage implements Serializable {
         return requestType;
     }
 
-    public ArrayList<MyObject> getMyObjects1() {
-        return myObjects1;
-    }
-
-    public ArrayList<MyObject> getMyObjects2() {
-        return myObjects2;
+    public String getDataPackage() {
+        return dataPackage;
     }
 
     public int getId1() {
@@ -50,7 +41,7 @@ public class SocketPackage implements Serializable {
 
     @Override
     public String toString() {
-        return "SocketPackage [id=" + id1 + ", myObjects1=" + myObjects1 + ", myObjects2=" + myObjects2 + ", requestType="
+        return "SocketPackage [id=" + id1 + ", myObjects1=" + dataPackage + ", " + " requestType="
                 + requestType + "]";
     }
 }

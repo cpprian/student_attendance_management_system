@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @version 1.1
  * @since 2023-01-06
  */
-public class Attendance extends MyObject implements Serializable {
+public class Attendance implements Serializable {
     /**
      * classTime is an object that store all the information about the class time
      */

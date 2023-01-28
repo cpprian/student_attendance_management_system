@@ -20,7 +20,7 @@ import java.util.Date;
  * @version 1.0
  * @since 2023-01-04
  */
-public class ClassTime extends MyObject implements Serializable {
+public class ClassTime implements Serializable {
     /**
      * name is a String that represents the name of the class
      */

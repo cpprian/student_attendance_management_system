@@ -3,18 +3,19 @@ package com.main.sams.server.client;
 import com.main.sams.server.server.RequestType;
 import com.main.sams.server.server.SocketPackage;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.*;
+
 import com.google.gson.Gson;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Client {
     private static Client instance = null;
     private static final int PORT = 8080;
 
     private Socket clientSocket = null;
-    private DataOutputStream out = null;
-    private DataInputStream in = null;
+    private BufferedWriter out = null;
+    private BufferedReader in = null;
     private System.Logger logger = null;
     private Gson gson = null;
 
@@ -23,8 +24,8 @@ public class Client {
             logger = System.getLogger("Client");
             gson = new Gson();
             clientSocket = new Socket(hostname, PORT);
-            out = new DataOutputStream(clientSocket.getOutputStream());
-            in = new DataInputStream(clientSocket.getInputStream());
+            out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream(), StandardCharsets.UTF_8));
+            in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, "Client constructor: Client failed to connect to server");
             System.exit(1);
@@ -54,20 +55,20 @@ public class Client {
         }
     }
 
-    public void sendRequest(SocketPackage socketPackage) {
+    public void sendRequest(String json) {
         try {
-            String json = gson.toJson(socketPackage);
-            out.writeUTF(json);
-            System.out.println("Client sent: " + json);
+            out.write(json + "\n");
+            out.flush();
             logger.log(System.Logger.Level.INFO, "Sent request to server");
         } catch (Exception e) {
-            logger.log(System.Logger.Level.ERROR, "Client sendRequest: Failed to send request to server");
+            logger.log(System.Logger.Level.ERROR, "Client sendRequest: Failed to send request to server " + e.getMessage());
         }
     }
 
     public SocketPackage receiveResponse() {
         try {
-            String json = in.readUTF();
+            String json = in.readLine();
+            System.out.println(json);
             SocketPackage socketPackage = gson.fromJson(json, SocketPackage.class);
             System.out.println(socketPackage);
             if (socketPackage.getRequestType() == RequestType.SERVER_REJECTED) {

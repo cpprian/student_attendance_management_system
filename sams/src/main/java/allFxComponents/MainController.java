@@ -136,7 +136,6 @@ public class MainController implements Initializable {
         this.dziennikObecności = new DziennikObecności();
 
         this.connector = AppConnector.run("172.16.213.132");
-        /*
         dziennikObecności.dodajGrupe("IO1");
         System.out.println(dziennikObecności.getGrupy().get(0).getGroupName());
         dziennikObecności.getGrupy().get(dziennikObecności.getGrupy().size() - 1).addStudent("Janek", "Zacier", 423123);
@@ -199,12 +198,31 @@ public class MainController implements Initializable {
         System.out.println(dziennikObecności.getTerminy().get(1).getObecności());
         System.out.println(dziennikObecności.getTerminy().get(2).getObecności());
 
-        dziennikObecności.zapiszObcnosciDoStudenta();*/
-        System.out.println("asd");
+        dziennikObecności.zapiszObcnosciDoStudenta();
+
+        connector.addStudent("Janek", "Zacier", 423123);
+        connector.addStudent("Kanej", "Cierza", 123123);
+        connector.addStudent("Maciej", "Laciej", 143124);
+
+        connector.addGroup("IO1", 2023);
+        connector.addGroup("IO2", 2023);
+        connector.addGroup("IO3", 2023);
+
+        connector.addStudentToGroup(423123, 1);
+        connector.addStudentToGroup(423123, 2);
+        connector.addStudentToGroup(423123, 3);
+        connector.addStudentToGroup(123123, 2);
+        connector.addStudentToGroup(143124, 3);
+
+        System.out.println("BBBBBBBBB\n");
+        System.out.println(connector.getStudents());
+        System.out.println(connector.getGroups());
+        System.out.println("AAAAAAAAA\n");
         for(Group group: connector.getGroups())
         {
             dziennikObecności.dodajGrupe(group.getName());
         }
+
         for(Grupa grupa: dziennikObecności.getGrupy()){
             for(StudentPackage student1: connector.getStudentsInGroup(dziennikObecności.getGrupy().indexOf(grupa))){
                 grupa.addStudent(student1.getName(),student1.getSurname(),student1.getIndex());

@@ -9,6 +9,8 @@ import org.controlsfx.control.spreadsheet.SpreadsheetCell;
 
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 public class AppConnector {
     private static AppConnector instance = null;
     private Client client = null;
@@ -37,195 +39,224 @@ public class AppConnector {
     public void addStudent(String name, String surname, int index) {
         StudentPackage studentPackage = new StudentPackage(name, surname, index);
         RequestType requestType = RequestType.ADD_STUDENT;
-        ArrayList<MyObject> studentPackages = new ArrayList<>();
-        studentPackages.add(studentPackage);
-        SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String studentJson = gson.toJson(studentPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, studentJson, 0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void deleteStudent(int index) {
         StudentPackage studentPackage = new StudentPackage(null, null, index);
         RequestType requestType = RequestType.DELETE_STUDENT;
-        ArrayList<MyObject> studentPackages = new ArrayList<>();
-        studentPackages.add(studentPackage);
-        SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String studentJson = gson.toJson(studentPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, studentJson, 0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void addGroup(String name, int year) {
         Group group = new Group(name, year);
         RequestType requestType = RequestType.ADD_GROUP;
-        ArrayList<MyObject> groups = new ArrayList<>();
-        groups.add(group);
-        SocketPackage socketPackage = new SocketPackage(requestType, groups, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String groupJson = gson.toJson(group);
+        SocketPackage socketPackage = new SocketPackage(requestType, groupJson,0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void deleteGroup(String name, int year) {
         Group group = new Group(name, year);
         RequestType requestType = RequestType.DELETE_GROUP;
-        ArrayList<MyObject> groups = new ArrayList<>();
-        groups.add(group);
-        SocketPackage socketPackage = new SocketPackage(requestType, groups, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String groupJson = gson.toJson(group);
+        SocketPackage socketPackage = new SocketPackage(requestType, groupJson, 0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void addStudentToGroup(int index, int groupID) {
         StudentPackage studentPackage = new StudentPackage(null, null, index);
         RequestType requestType = RequestType.ADD_STUDENT_TO_GROUP;
-        ArrayList<MyObject> studentPackages = new ArrayList<>();
-        studentPackages.add(studentPackage);
-        SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        String studentJson = gson.toJson(studentPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, studentJson, groupID, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void deleteStudentFromGroup(int index, int groupID) {
         StudentPackage studentPackage = new StudentPackage(null, null, index);
         RequestType requestType = RequestType.DELETE_STUDENT_FROM_GROUP;
-        ArrayList<MyObject> studentPackages = new ArrayList<>();
-        studentPackages.add(studentPackage);
-        SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        String studentJson = gson.toJson(studentPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, studentJson, groupID, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void addClassTime(String name, int durationInMinutes, String classDate, String startTime, String endTime, String location, String description) {
         ClassTime classTime = new ClassTime(name, durationInMinutes, classDate, startTime, endTime, location, description);
         RequestType requestType = RequestType.ADD_CLASS_TIME;
-        ArrayList<MyObject> classTimes = new ArrayList<>();
-        classTimes.add(classTime);
-        SocketPackage socketPackage = new SocketPackage(requestType, classTimes, null, 0, 0);
-        client.sendRequest(socketPackage);
+        String classTimeJson = gson.toJson(classTime);
+        SocketPackage socketPackage = new SocketPackage(requestType, classTimeJson, 0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
     public void addAttendance(int index, int classTimeID) {
         StudentPackage studentPackage = new StudentPackage(null, null, index);
         RequestType requestType = RequestType.ADD_ATTENDANCE;
-        ArrayList<MyObject> studentPackages = new ArrayList<>();
-        studentPackages.add(studentPackage);
-        SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, classTimeID, 0);
-        client.sendRequest(socketPackage);
+        String studentJson = gson.toJson(studentPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, studentJson, classTimeID, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response);
     }
 
-    public ArrayList<StudentPackage> getStudents() {
+    public StudentPackage[] getStudents() {
         RequestType requestType = RequestType.PRINT_ALL_STUDENTS;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, 0, 0);
-        client.sendRequest(socketPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, null,  0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<StudentPackage> studentPackages = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            studentPackages.add((StudentPackage) myObject);
-        }
-        return studentPackages;
+        return gson.fromJson(response.getDataPackage(), StudentPackage[].class);
     }
 
-    public ArrayList<Group> getGroups() {
+    public Group[] getGroups() {
         RequestType requestType = RequestType.PRINT_ALL_GROUPS;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, 0, 0);
-        client.sendRequest(socketPackage);
-        SocketPackage response = client.receiveResponse();
-        ArrayList<Group> groups = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            groups.add((Group) myObject);
+        SocketPackage socketPackage = new SocketPackage(requestType, null, 0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
+        for (int i = 0; i < 1000; i++) {
+            try {
+                sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        return groups;
+        SocketPackage response = client.receiveResponse();
+        System.out.println(response.getDataPackage());
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getGroups() rejected");
+            return null;
+        }
+        return gson.fromJson(response.getDataPackage(), Group[].class);
     }
 
-    public ArrayList<ClassTime> getClassTimes() {
+    public ClassTime[] getClassTimes() {
         RequestType requestType = RequestType.PRINT_ALL_CLASS_TIMES;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, 0, 0);
-        client.sendRequest(socketPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, null, 0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<ClassTime> classTimes = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            classTimes.add((ClassTime) myObject);
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getClassTimes() rejected");
+            return null;
         }
-        return classTimes;
+        return gson.fromJson(response.getDataPackage(), ClassTime[].class);
     }
 
-    public ArrayList<Attendance> getAttendances() {
+    public Attendance[] getAttendances() {
         RequestType requestType = RequestType.PRINT_ALL_ATTENDANCES;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, 0, 0);
-        client.sendRequest(socketPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, null, 0, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<Attendance> attendances = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            attendances.add((Attendance) myObject);
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getAttendances() rejected");
+            return null;
         }
-        return attendances;
+        return gson.fromJson(response.getDataPackage(), Attendance[].class);
     }
 
-    public ArrayList<StudentPackage> getStudentsInGroup(int groupID) {
+    public StudentPackage[] getStudentsInGroup(int groupID) {
         RequestType requestType = RequestType.PRINT_STUDENTS_IN_GROUP;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, null, groupID, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<StudentPackage> studentPackages = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            studentPackages.add((StudentPackage) myObject);
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getStudentsInGroup() rejected");
+            return null;
         }
-        return studentPackages;
+        return gson.fromJson(response.getDataPackage(), StudentPackage[].class);
     }
 
-    public ArrayList<Group> getGroupsOfStudent(int index) {
+    public Group[] getGroupsOfStudent(int index) {
         RequestType requestType = RequestType.PRINT_ALL_GROUPS_OF_STUDENT;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, index, 0);
-        client.sendRequest(socketPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, null, index, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<Group> groups = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            groups.add((Group) myObject);
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getGroupsOfStudent() rejected");
+            return null;
         }
-        return groups;
+        return gson.fromJson(response.getDataPackage(), Group[].class);
     }
 
-    public ArrayList<Attendance> getAttendancesOfStudent(int index, int classTimeID) {
+    public Attendance[] getAttendancesOfStudent(int index, int classTimeID) {
         RequestType requestType = RequestType.PRINT_ALL_STUDENT_ATTENDANCES;
         StudentPackage studentPackage = new StudentPackage(null, null, index);
-        ArrayList<MyObject> studentPackages = new ArrayList<>();
-        studentPackages.add(studentPackage);
-        SocketPackage socketPackage = new SocketPackage(requestType, studentPackages, null, classTimeID, 0);
-        client.sendRequest(socketPackage);
+        String studentJson = gson.toJson(studentPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, studentJson,  classTimeID, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<Attendance> attendances = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            attendances.add((Attendance) myObject);
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getAttendancesOfStudent() rejected");
+            return null;
         }
-        return attendances;
+        return gson.fromJson(response.getDataPackage(), Attendance[].class);
     }
 
-    public ArrayList<Attendance> getClassTimesOfStudent(int index) {
+    public Attendance[] getClassTimesOfStudent(int index) {
         RequestType requestType = RequestType.PRINT_ALL_CLASS_TIMES_OF_STUDENT;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, index, 0);
-        client.sendRequest(socketPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, null, index, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<Attendance> attendances = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            attendances.add((Attendance) myObject);
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getClassTimesOfStudent() rejected");
+            return null;
         }
-        return attendances;
+        return gson.fromJson(response.getDataPackage(), Attendance[].class);
     }
 
-    public ArrayList<ClassTime> getClassTimesOfGroup(int groupID) {
+    public ClassTime[] getClassTimesOfGroup(int groupID) {
         RequestType requestType = RequestType.PRINT_ALL_CLASS_TIMES_OF_GROUP;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, null, groupID, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<ClassTime> classTimes = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            classTimes.add((ClassTime) myObject);
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getClassTimesOfGroup() rejected");
+            return null;
         }
-        return classTimes;
+        return gson.fromJson(response.getDataPackage(), ClassTime[].class);
     }
 
-    public ArrayList<Attendance> getAttendancesOfGroup(int groupID, int classTimeID) {
+    public Attendance[] getAttendancesOfGroup(int groupID, int classTimeID) {
         RequestType requestType = RequestType.PRINT_GROUP_ATTENDANCE;
-        SocketPackage socketPackage = new SocketPackage(requestType, null, null, groupID, 0);
-        client.sendRequest(socketPackage);
+        SocketPackage socketPackage = new SocketPackage(requestType, null, groupID, 0);
+        String json = gson.toJson(socketPackage);
+        client.sendRequest(json);
         SocketPackage response = client.receiveResponse();
-        ArrayList<Attendance> attendances = new ArrayList<>();
-        for (MyObject myObject : response.getMyObjects1()) {
-            attendances.add((Attendance) myObject);
+        if (response.getRequestType() == RequestType.SERVER_REJECTED) {
+            System.out.println("getAttendancesOfGroup() rejected");
+            return null;
         }
-        return attendances;
+        return gson.fromJson(response.getDataPackage(), Attendance[].class);
     }
 }
