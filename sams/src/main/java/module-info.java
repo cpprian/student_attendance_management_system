@@ -16,4 +16,9 @@ module com.main.sams {
     exports allFxComponents;
     exports allFxComponents.Controllers;
     opens allFxComponents.Controllers to javafx.fxml;
+
+    opens com.main.sams.server.server to com.google.gson;
+    exports com.main.sams.server.server;
+    opens com.main.sams.student to com.google.gson;
+    exports com.main.sams.student;
 }

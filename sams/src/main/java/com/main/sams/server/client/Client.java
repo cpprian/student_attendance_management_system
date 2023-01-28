@@ -61,7 +61,7 @@ public class Client {
             System.out.println("Client sent: " + json);
             logger.log(System.Logger.Level.INFO, "Sent request to server");
         } catch (Exception e) {
-            logger.log(System.Logger.Level.ERROR, "Client sendRequest: Failed to send request to server");
+            logger.log(System.Logger.Level.ERROR, "Client sendRequest: Failed to send request to server " + e.getMessage());
         }
     }
 
