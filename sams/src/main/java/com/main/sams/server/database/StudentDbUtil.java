@@ -36,14 +36,14 @@ public class StudentDbUtil {
 
     public static String addGroup(String groupName, int groupYear) {
         return """
-                INSERT INTO studentgroup (groupName, groupYear)
+                INSERT INTO sgroup (groupName, groupYear)
                 VALUES ('%s', %d);
                 """.formatted(groupName, groupYear);
     }
 
     public static String deleteGroup(int groupID) {
         return """
-                DELETE FROM studentgroup
+                DELETE FROM sgroup
                 WHERE groupid = %d;
                 """.formatted(groupID);
     }
@@ -96,8 +96,8 @@ public class StudentDbUtil {
 
     public static String printAllGroups() {
         return """
-                SELECT groupname, groupyear
-                FROM studentgroup;
+                SELECT groupid, groupname, groupyear
+                FROM sgroup;
                 """;
     }
 
