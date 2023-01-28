@@ -1,5 +1,6 @@
 package com.main.sams.server.server;
 
+import com.google.gson.Gson;
 import com.main.sams.server.database.DatabaseWorker;
 import com.main.sams.student.*;
 
@@ -46,12 +47,12 @@ public class Server {
     /**
      * out is used to write to the client
      */
-    private ObjectOutputStream out = null;
+    private DataOutputStream out = null;
 
     /**
      * in is used to read from the client
      */
-    private ObjectInputStream in = null;
+    private DataInputStream in = null;
 
     /**
      * databaseWorker is used to communicate with the database
@@ -68,6 +69,8 @@ public class Server {
      */
     private String dbPort = "";
 
+    private Gson gson = null;
+
     /**
      * constructor for the server, sets the logger and databaseWorker and starts the server
      *
@@ -78,6 +81,7 @@ public class Server {
         try {
             dbHost = hostname;
             dbPort = port;
+            gson = new Gson();
             serverSocket = new ServerSocket(PORT);
             logger = System.getLogger("Server");
             logger.log(System.Logger.Level.INFO, "Server started on port " + PORT + " and ip address " + serverSocket.getInetAddress());
@@ -156,8 +160,8 @@ public class Server {
             // handle one client at a time
             clientSocket = serverSocket.accept();
             logger.log(System.Logger.Level.INFO, "Client connected: " + clientSocket.getInetAddress().getHostAddress());
-            out = new ObjectOutputStream(clientSocket.getOutputStream());
-            in = new ObjectInputStream(clientSocket.getInputStream());
+            out = new DataOutputStream(clientSocket.getOutputStream());
+            in = new DataInputStream(clientSocket.getInputStream());
 
             receivePackage();
         } catch (Exception e) {
@@ -202,7 +206,10 @@ public class Server {
         try {
             while (clientSocket.isConnected()) {
                 // read from client
-                SocketPackage socketPackage = (SocketPackage) in.readObject();
+                String received = in.readUTF();
+                logger.log(System.Logger.Level.INFO, "Received: " + received);
+                // parse the package
+                SocketPackage socketPackage = gson.fromJson(received, SocketPackage.class);
                 if (socketPackage == null) {
                     logger.log(System.Logger.Level.INFO, "Received package from client is null. Closing connection.");
                     continue;
@@ -239,8 +246,8 @@ public class Server {
                 logger.log(System.Logger.Level.INFO, "Client is not connected. Closing connection.");
                 return;
             }
-            out.writeObject(socketPackage);
-            out.flush();
+            String json = gson.toJson(socketPackage);
+            out.writeUTF(json);
             logger.log(System.Logger.Level.INFO, "Sent package to client: " + socketPackage);
         } catch (Exception e) {
             logger.log(System.Logger.Level.ERROR, "Server sendPackage: Server failed to send package");
